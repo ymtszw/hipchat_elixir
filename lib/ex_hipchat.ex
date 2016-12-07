@@ -1,0 +1,2 @@
+defmodule ExHipchat do
+end
