@@ -2,31 +2,36 @@ defmodule ExHipchat.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :ex_hipchat,
-     version: "0.1.0",
-     elixir: "~> 1.3",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps()]
+    [
+      app:             :ex_hipchat,
+      version:         "0.1.1",
+      elixir:          "~> 1.3",
+      build_embedded:  Mix.env == :prod,
+      start_permanent: Mix.env == :prod,
+      deps:            deps(),
+    ]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger]]
+    default_apps = [
+      :logger,
+      :hackney,
+    ]
+    apps = if Mix.env == :dev, do: default_apps ++ dev_only_apps, else: default_apps
+    [applications: apps]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:mydep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
+  defp dev_only_apps do
+    [
+      :exsync,
+    ]
+  end
+
   defp deps do
-    []
+    [
+      {:exsync,  "~> 0.1", only: :dev},
+      {:croma,   "~> 0.4"            },
+      {:hackney, "~> 1.6"            },
+    ]
   end
 end
