@@ -17,22 +17,22 @@ defmodule ExHipchat.Mixfile do
       :logger,
       :hackney,
     ]
-    apps = if Mix.env == :dev, do: default_apps ++ dev_only_apps, else: default_apps
+    apps = case Mix.env do
+      :dev  -> default_apps ++ [:exsync]
+      :test -> default_apps ++ [:yamerl]
+      _else -> default_apps
+    end
     [applications: apps]
-  end
-
-  defp dev_only_apps do
-    [
-      :exsync,
-    ]
   end
 
   defp deps do
     [
-      {:exsync,  "~> 0.1", only: :dev},
-      {:croma,   "~> 0.4"            },
-      {:hackney, "~> 1.6"            },
-      {:poison,  "~> 2.2"            },
+      {:exsync,         "~> 0.1", only: :dev         },
+      {:mix_test_watch, "~> 0.2", only: :dev         },
+      {:yamerl,         "~> 0.4", only: [:dev, :test]},
+      {:croma,          "~> 0.4"                     },
+      {:hackney,        "~> 1.6"                     },
+      {:poison,         "~> 2.2"                     },
     ]
   end
 end
