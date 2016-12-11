@@ -32,6 +32,7 @@ defmodule ExHipchat.Mixfile do
       {:exsync,  "~> 0.1", only: :dev},
       {:croma,   "~> 0.4"            },
       {:hackney, "~> 1.6"            },
+      {:poison,  "~> 2.2"            },
     ]
   end
 end
