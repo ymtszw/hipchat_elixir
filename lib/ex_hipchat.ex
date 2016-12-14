@@ -2,10 +2,6 @@ defmodule ExHipchat do
   @moduledoc """
   Elixir API client for [HipChat](https://www.hipchat.com/docs/apiv2).
 
-  Supports basic functionality for Add-On and/or simple messaging-bot development.
+  Generated from HipChat API specifications in Swagger ([ymtszw/hipchat_swagger](https://github.com/ymtszw/hipchat_swagger))
   """
-
-  @endpoint_url "https://api.hipchat.com"
-
-  def endpoint_url, do: @endpoint_url
 end
