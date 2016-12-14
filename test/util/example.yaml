@@ -1,0 +1,17 @@
+  paths:
+    /capabilities:
+      get:
+        summary: Get Capabilities
+        description: |
+          Gets the capabilities descriptor for HipChat
+
+          Authentication not required.
+
+          https://www.hipchat.com/docs/apiv2/method/get_capabilities
+        tags:
+          - Capabilities
+        responses:
+          200:
+            description: Capabilities
+            schema:
+              type: object
