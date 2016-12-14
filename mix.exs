@@ -18,7 +18,7 @@ defmodule ExHipchat.Mixfile do
       :hackney,
     ]
     apps = case Mix.env do
-      :dev  -> default_apps ++ [:exsync]
+      :dev  -> default_apps ++ [:exsync, :yamerl]
       :test -> default_apps ++ [:yamerl]
       _else -> default_apps
     end
