@@ -1,0 +1,3 @@
+[submodule "hipchat_swagger"]
+	path = hipchat_swagger
+	url = https://github.com/ymtszw/hipchat_swagger.git
