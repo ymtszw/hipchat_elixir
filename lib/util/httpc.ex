@@ -32,7 +32,7 @@ defmodule ExHipchat.Httpc do
 
   `headers0` is `map` instead of `Keyword.t`, converted in this function.
   `options0` accepts any options available in `:hackney.request/5`.
-  Additionally, `:params` option can take query params as `Keyword.t`.
+  Additionally, `:params` option can take query params as `[{String.t, String.t}]`.
   """
   defun request(method  :: v[Method.t],
                 url     :: v[String.t],
@@ -53,6 +53,7 @@ defmodule ExHipchat.Httpc do
   defunp append_params(url :: v[String.t], options :: Keyword.t) :: String.t do
     case options[:params] do
       nil    -> url
+      []     -> url
       params -> url <> "?" <> URI.encode_query(params)
     end
   end
