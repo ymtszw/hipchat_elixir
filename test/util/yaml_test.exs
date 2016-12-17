@@ -1,4 +1,4 @@
-defmodule ExHipchat.YamlTest do
+defmodule Hipchat.YamlTest do
   use Croma.TestCase
 
   @example_file Path.join([__DIR__, "example.yaml"])

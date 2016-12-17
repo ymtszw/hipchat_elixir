@@ -1,6 +1,6 @@
 use Croma
 
-defmodule ExHipchat.Httpc do
+defmodule Hipchat.Httpc do
   alias Croma.Result, as: R
 
   @moduledoc """
@@ -22,8 +22,8 @@ defmodule ExHipchat.Httpc do
 
   defmacro __using__(_) do
     quote do
-      alias ExHipchat.{Httpc, Method}
-      alias ExHipchat.Httpc.Response, as: Res
+      alias Hipchat.{Httpc, Method}
+      alias Hipchat.Httpc.Response, as: Res
     end
   end
 

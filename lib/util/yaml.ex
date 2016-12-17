@@ -1,6 +1,6 @@
 use Croma
 
-defmodule ExHipchat.Yaml do
+defmodule Hipchat.Yaml do
   @moduledoc """
   YAML to map converter.
 

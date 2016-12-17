@@ -1,14 +1,14 @@
-defmodule ExHipchat.Mixfile do
+defmodule Hipchat.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app:             :ex_hipchat,
-      version:         "0.1.1",
+      app:             :hipchat_elixir,
+      version:         "0.1.0",
       elixir:          "~> 1.3",
       build_embedded:  Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      deps:            deps(),
+      deps:            deps,
     ]
   end
 

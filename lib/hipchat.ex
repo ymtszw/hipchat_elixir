@@ -1,4 +1,4 @@
-defmodule ExHipchat do
+defmodule Hipchat do
   @moduledoc """
   Elixir API client for [HipChat](https://www.hipchat.com/docs/apiv2).
 

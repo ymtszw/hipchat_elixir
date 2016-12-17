@@ -1,10 +1,10 @@
-defmodule Mix.Tasks.ExHipchat.Generate do
+defmodule Mix.Tasks.Hipchat.Generate do
   use Mix.Task
 
   @shortdoc "Generate modules from spec yaml"
 
   def run(_args) do
     Application.ensure_started(:yamerl)
-    ExHipchat.Generator.generate
+    Hipchat.Generator.generate
   end
 end

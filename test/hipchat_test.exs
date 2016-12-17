@@ -1,6 +1,6 @@
-defmodule ExHipchatTest do
+defmodule HipchatTest do
   use ExUnit.Case
-  doctest ExHipchat
+  doctest Hipchat
 
   test "the truth" do
     assert 1 + 1 == 2
