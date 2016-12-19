@@ -4,9 +4,8 @@ defmodule Hipchat.<%= String.upcase(version) %>.Client do
   Client struct module for HipChat API <%= version %>.
   """
 
-  use Hipchat.Httpc
+  alias Hipchat.{Httpc, Method, Response}
 
-  @content_header %{"content-type" => "application/json"}
   @endpoint "https://<%= host <> base_path %>"
 
   defstruct [:access_token, :auth_test?, :hackney_opts]
@@ -15,7 +14,7 @@ defmodule Hipchat.<%= String.upcase(version) %>.Client do
     auth_test?:   boolean,
     hackney_opts: Keyword.t,
   }
-  @type res_t :: {:ok, Res.t} | {:error, any}
+  @type res_t :: {:ok, Response.t} | {:error, any}
 
   @doc """
   Generate client struct for HipChat API.
@@ -38,19 +37,13 @@ defmodule Hipchat.<%= String.upcase(version) %>.Client do
   end
 
   @doc false
-  @spec send_request(t, Method.t, String.t, list, nil | map) :: res_t
-  def send_request(client, method, path, query_params, nil) do
-    Httpc.request(method, @endpoint <> path, "", headers(client), httpc_opts(client, query_params))
-  end
+  @spec send_request(t, Method.t, String.t, list, map) :: res_t
   def send_request(client, method, path, query_params, body) do
-    case Poison.encode(body) do
-      {:ok, json} -> Httpc.request(method, @endpoint <> path, json, headers(client), httpc_opts(client, query_params))
-      error_tuple -> error_tuple
-    end
+    Httpc.request(method, @endpoint <> path, {:form, Map.to_list(body)}, headers(client), httpc_opts(client, query_params))
   end
 
-  defp headers(%__MODULE__{access_token: nil}), do: @content_header
-  defp headers(%__MODULE__{access_token: at }), do: Map.put(@content_header, "authorization", "Bearer #{at}")
+  defp headers(%__MODULE__{access_token: nil}), do: []
+  defp headers(%__MODULE__{access_token: a_t}), do: [{"authorization", "Bearer #{a_t}"}]
 
   defp httpc_opts(%__MODULE__{auth_test?: false, hackney_opts: ho}, query_params) do
     [{:params, query_params} | ho]

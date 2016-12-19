@@ -17,7 +17,7 @@ defmodule Hipchat.V2.Api.Emoticons do
   """
   @spec get_all_emoticons(Client.t, list) :: Client.res_t
   def get_all_emoticons(client, query_params) do
-    Client.send_request(client, :get, "/emoticon", query_params, nil)
+    Client.send_request(client, :get, "/emoticon", query_params, %{})
   end
 
   @doc """
@@ -31,6 +31,6 @@ defmodule Hipchat.V2.Api.Emoticons do
   """
   @spec get_emoticon(Client.t, String.t) :: Client.res_t
   def get_emoticon(client, emoticon_id_or_key) do
-    Client.send_request(client, :get, "/emoticon/#{emoticon_id_or_key}", [], nil)
+    Client.send_request(client, :get, "/emoticon/#{emoticon_id_or_key}", [], %{})
   end
 end

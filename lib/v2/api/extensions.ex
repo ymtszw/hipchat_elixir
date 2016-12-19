@@ -36,7 +36,7 @@ defmodule Hipchat.V2.Api.Extensions do
   """
   @spec delete_global_action(Client.t, String.t) :: Client.res_t
   def delete_global_action(client, key) do
-    Client.send_request(client, :delete, "/extension/action/#{key}", [], nil)
+    Client.send_request(client, :delete, "/extension/action/#{key}", [], %{})
   end
 
   @doc """
@@ -50,6 +50,6 @@ defmodule Hipchat.V2.Api.Extensions do
   """
   @spec get_global_action(Client.t, String.t) :: Client.res_t
   def get_global_action(client, key) do
-    Client.send_request(client, :get, "/extension/action/#{key}", [], nil)
+    Client.send_request(client, :get, "/extension/action/#{key}", [], %{})
   end
 end

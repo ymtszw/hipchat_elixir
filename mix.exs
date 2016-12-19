@@ -7,32 +7,33 @@ defmodule Hipchat.Mixfile do
       version:         "0.1.0",
       elixir:          "~> 1.3",
       build_embedded:  Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      start_permanent: false,
       deps:            deps,
       elixirc_paths:   paths,
+      description:     "HiChat client library for Elixir",
+      package:         [
+        files:    ["lib", "mix.exs", "LICENSE", "README.md"],
+        licenses: ["MIT"],
+      ],
     ]
   end
 
   def application do
-    default_apps = [
-      :logger,
-      :hackney,
-    ]
     apps = case Mix.env do
-      :dev  -> default_apps ++ [:exsync] # :yamerl is manually started in mix task
-      :test -> default_apps ++ [:yamerl]
-      _else -> default_apps
+      :dev  -> [:hackney, :exsync] # :yamerl is manually started in mix task
+      :test -> [:hackney, :yamerl]
+      _else -> [:hackney]
     end
     [applications: apps]
   end
 
   defp deps do
     [
-      {:hackney,        "1.6.3"                      },
-      {:poison,         "2.2.0"                      },
-      {:exsync,         "~> 0.1", only: :dev         },
-      {:mix_test_watch, "~> 0.2", only: :dev         },
-      {:yamerl,         "~> 0.4", only: [:dev, :test]},
+      {:hackney       , "1.6.3"                       },
+      {:exsync        , "~> 0.1" , only: :dev         },
+      {:ex_doc        , "~> 0.14", only: :dev         },
+      {:mix_test_watch, "~> 0.2" , only: :dev         },
+      {:yamerl        , "~> 0.4" , only: [:dev, :test]},
     ]
   end
 

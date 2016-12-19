@@ -15,7 +15,7 @@ defmodule Hipchat.V2.Api.Capabilities do
   """
   @spec get_addon_capabilities_schema(Client.t, list) :: Client.res_t
   def get_addon_capabilities_schema(client, query_params) do
-    Client.send_request(client, :get, "/capabilities/addon/schema", query_params, nil)
+    Client.send_request(client, :get, "/capabilities/addon/schema", query_params, %{})
   end
 
   @doc """
@@ -27,6 +27,6 @@ defmodule Hipchat.V2.Api.Capabilities do
   """
   @spec get_capabilities(Client.t) :: Client.res_t
   def get_capabilities(client) do
-    Client.send_request(client, :get, "/capabilities", [], nil)
+    Client.send_request(client, :get, "/capabilities", [], %{})
   end
 end

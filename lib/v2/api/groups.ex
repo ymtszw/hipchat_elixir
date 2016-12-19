@@ -17,7 +17,7 @@ defmodule Hipchat.V2.Api.Groups do
   """
   @spec delete_group_avatar(Client.t, String.t) :: Client.res_t
   def delete_group_avatar(client, group_id) do
-    Client.send_request(client, :delete, "/group/#{group_id}/avatar", [], nil)
+    Client.send_request(client, :delete, "/group/#{group_id}/avatar", [], %{})
   end
 
   @doc """
@@ -31,7 +31,7 @@ defmodule Hipchat.V2.Api.Groups do
   """
   @spec get_group(Client.t, String.t) :: Client.res_t
   def get_group(client, group_id) do
-    Client.send_request(client, :get, "/group/#{group_id}", [], nil)
+    Client.send_request(client, :get, "/group/#{group_id}", [], %{})
   end
 
   @doc """
@@ -45,7 +45,7 @@ defmodule Hipchat.V2.Api.Groups do
   """
   @spec get_group_avatar(Client.t, String.t) :: Client.res_t
   def get_group_avatar(client, group_id) do
-    Client.send_request(client, :get, "/group/#{group_id}/avatar", [], nil)
+    Client.send_request(client, :get, "/group/#{group_id}/avatar", [], %{})
   end
 
   @doc """
@@ -59,7 +59,7 @@ defmodule Hipchat.V2.Api.Groups do
   """
   @spec get_group_statistics(Client.t, String.t) :: Client.res_t
   def get_group_statistics(client, group_id) do
-    Client.send_request(client, :get, "/group/#{group_id}/statistics", [], nil)
+    Client.send_request(client, :get, "/group/#{group_id}/statistics", [], %{})
   end
 
   @doc """

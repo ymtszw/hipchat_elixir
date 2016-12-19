@@ -4,7 +4,7 @@ HipChat client library for [Elixir](http://elixir-lang.org).
 
 Generated from HipChat Swagger API specifications in [ymtszw/hipchat_swagger](https://github.com/ymtszw/hipchat_swagger).
 
-Depends on `hackney` for HTTP client, and `Poison` for JSON parser.
+Depends on `hackney` for HTTP client.
 
 # Basic Usage
 

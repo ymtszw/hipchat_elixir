@@ -11,6 +11,6 @@ defmodule Hipchat.<%= String.upcase(version) %>.Api.<%= Macro.camelize(basename)
   """
   @spec <%= identifier %>(<%= Enum.join(["Client.t" | Enum.map(path_params, fn _ -> "String.t" end)], ", ") %><%= if has_query?, do: ", list" %><%= if has_body?, do: ", map" %>) :: Client.res_t
   def <%= identifier %>(<%= Enum.join(["client" | path_params], ", ") %><%= if has_query?, do: ", query_params" %><%= if has_body?, do: ", body" %>) do
-    Client.send_request(client, :<%= method %>, "<%= path %>", <%= if has_query?, do: "query_params", else: "[]" %>, <%= if has_body?, do: "body", else: "nil" %>)
+    Client.send_request(client, :<%= method %>, "<%= path %>", <%= if has_query?, do: "query_params", else: "[]" %>, <%= if has_body?, do: "body", else: "%{}" %>)
   end<% end %>
 end

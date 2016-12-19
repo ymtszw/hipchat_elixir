@@ -17,6 +17,6 @@ defmodule Hipchat.V2.Api.Users do
   """
   @spec get_all_users(Client.t, list) :: Client.res_t
   def get_all_users(client, query_params) do
-    Client.send_request(client, :get, "/user", query_params, nil)
+    Client.send_request(client, :get, "/user", query_params, %{})
   end
 end
