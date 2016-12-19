@@ -1,5 +1,6 @@
-defmodule Hipchat.YamlTest do
-  use Croma.TestCase
+defmodule Hipchat.Generator.YamlTest do
+  use ExUnit.Case
+  alias Hipchat.Generator.Yaml
 
   @example_file Path.join([__DIR__, "example.yaml"])
 

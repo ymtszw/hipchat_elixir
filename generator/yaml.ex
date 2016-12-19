@@ -1,6 +1,4 @@
-use Croma
-
-defmodule Hipchat.Yaml do
+defmodule Hipchat.Generator.Yaml do
   @moduledoc """
   YAML to map converter.
 
@@ -8,12 +6,11 @@ defmodule Hipchat.Yaml do
   Using [ymerl](https://github.com/yakaz/yamerl) inside.
   """
 
-  alias Croma.Result, as: R
-
-  defun from_file(file_name :: Path.t) :: R.t(map) do
+  @spec from_file(Path.t) :: {:ok, map} | {:error, term}
+  def from_file(file_name) do
     case :yamerl_constr.file(file_name) do
-      []                   -> R.pure(%{})                             # Empty file
-      [[_ | _] = mappings] -> mappings |> convert_recursive |> R.pure # :yamerl_constr.file/1 only returns single-element list
+      []                   -> {:ok, %{}}                         # Empty file
+      [[_ | _] = mappings] -> {:ok, convert_recursive(mappings)} # :yamerl_constr.file/1 only returns single-element list
       error_term           -> {:error, error_term}
     end
   end

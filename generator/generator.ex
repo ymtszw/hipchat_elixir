@@ -1,7 +1,7 @@
 defmodule Hipchat.Generator do
-  alias Hipchat.Yaml
+  alias Hipchat.Generator.Yaml
 
-  @root_dir   Path.expand(Path.join([__DIR__, "..", ".."]))
+  @root_dir   Path.expand(Path.join([__DIR__, ".."]))
   @lib_dir    Path.join([@root_dir, "lib"])
   @spec_files Path.wildcard(Path.join([@root_dir, "hipchat_swagger", "*.yaml"]))
 
@@ -24,8 +24,6 @@ defmodule Hipchat.Generator do
   defp ensure_directories(version) do
     [
       Path.join([@lib_dir, version, "api"]),
-      Path.join([@lib_dir, version, "query"]),
-      Path.join([@lib_dir, version, "body"]),
     ]
     |> Enum.each(&File.mkdir_p!(&1))
   end

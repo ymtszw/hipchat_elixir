@@ -1,23 +1,39 @@
-use Croma
-
 defmodule Hipchat.Httpc do
-  alias Croma.Result, as: R
-
   @moduledoc """
   Thin wrapper around hackney.
   """
 
   defmodule Method do
-    use Croma.SubtypeOfAtom, values: [:get, :post, :put, :delete]
+    @moduledoc """
+    Available HTTP methods in `Httpc`.
+    """
+
+    @type t :: :get | :post | :put | :delete
   end
 
   defmodule Response do
-    import Croma.TypeGen, only: [union: 1]
-    use Croma.Struct, fields: [
-      status:  Croma.NonNegInteger,
-      headers: Croma.Map,
-      body:    union([Croma.String, Croma.Map]),
-    ]
+    @moduledoc """
+    Struct module for response of `Httpc.request/5`.
+    """
+
+    defstruct [:status, :headers, :body]
+    @type t :: %__MODULE__{
+      status:  non_neg_integer,
+      headers: map,
+      body:    binary | map,
+    }
+
+    @spec new(non_neg_integer, map, binary | map) :: {:ok, t} | {:error, tuple}
+    def new(status, headers, body) when status > 99 and status < 600 and is_map(headers) and (is_binary(body) or is_map(body)) do # XXX
+      {:ok, %__MODULE__{
+        status:  status,
+        headers: headers,
+        body:    body,
+      }}
+    end
+    def new(status, headers, body) do
+      {:error, {:invalid_args, status, headers, body}}
+    end
   end
 
   defmacro __using__(_) do
@@ -34,11 +50,8 @@ defmodule Hipchat.Httpc do
   `options0` accepts any options available in `:hackney.request/5`.
   Additionally, `:params` option can take query params as `[{String.t, String.t}]`.
   """
-  defun request(method  :: v[Method.t],
-                url     :: v[String.t],
-                body    :: v[String.t],
-                headers :: v[map],
-                options :: Keyword.t \\ []) :: R.t(Response.t) do
+  @spec request(Method.t, String.t, binary, %{String.t => String.t}, Keyword.t) :: {:ok, Response.t} | {:error, term}
+  def request(method, url, body, headers, options \\ []) do
     url1     = append_params(url, options)
     options1 = [{:with_body, true} | options]
     headers1 = Enum.map(headers, fn {k, v} -> {String.downcase(k), v} end)
@@ -50,34 +63,32 @@ defmodule Hipchat.Httpc do
     end
   end
 
-  defunp append_params(url :: v[String.t], options :: Keyword.t) :: String.t do
+  defp append_params(url, options) do
     case options[:params] do
-      nil    -> url
-      []     -> url
-      params -> url <> "?" <> URI.encode_query(params)
+      [_ | _] = params -> url <> "?" <> URI.encode_query(params)
+      _empty_or_nil    -> url
     end
   end
 
-  defunp make_response(status       :: non_neg_integer,
-                       resp_headers :: Keyword.t,
-                       resp_body    :: String.t) :: R.t(Response.t) do
-    (status, resp_headers, ""       ) -> Response.new(%{status: status, headers: convert_resp_headers(resp_headers), body: ""})
-    (status, resp_headers, resp_body) ->
-      resp_headers1 = convert_resp_headers(resp_headers)
-      convert_resp_body(resp_headers1, resp_body)
-      |> R.bind(fn converted_body ->
-        Response.new(%{status: status, headers: resp_headers1, body: converted_body})
-      end)
+  @spec make_response(non_neg_integer, [{binary, binary}], binary) :: {:ok, Response.t} | {:error, term}
+  defp make_response(status, resp_headers, "") do
+    Response.new(status, convert_resp_headers(resp_headers), "")
+  end
+  defp make_response(status, resp_headers0, resp_body) do
+    resp_headers1 = convert_resp_headers(resp_headers0)
+    case convert_resp_body(resp_headers1, resp_body) do
+      {:ok, converted_body} -> Response.new(status, resp_headers1, converted_body)
+      error_tuple           -> error_tuple
+    end
   end
 
-  defunp convert_resp_headers(resp_headers :: Keyword.t) :: map do
+  defp convert_resp_headers(resp_headers) do
     Map.new(resp_headers, fn {key, value} ->
       {String.downcase(key), value}
     end)
   end
 
-  defunp convert_resp_body(downcased_resp_headers :: map, resp_body :: String.t) :: R.t(String.t | map) do
-    (%{"content-type" => "application/json"}, resp_body) -> Poison.decode(resp_body)
-    (_not_json                              , resp_body) -> {:ok, resp_body}
-  end
+  @spec convert_resp_body(map, String.t) :: {:ok, String.t | map} | {:error, term}
+  defp convert_resp_body(%{"content-type" => "application/json"}, resp_body), do: Poison.decode(resp_body)
+  defp convert_resp_body(_not_json                              , resp_body), do: {:ok, resp_body}
 end

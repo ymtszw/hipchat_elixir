@@ -1,10 +1,12 @@
-# ExHipchat
+# hipchat_elixir
 
 HipChat client library for [Elixir](http://elixir-lang.org).
 
 Generated from HipChat Swagger API specifications in [ymtszw/hipchat_swagger](https://github.com/ymtszw/hipchat_swagger).
 
-# Usage
+Depends on `hackney` for HTTP client, and `Poison` for JSON parser.
+
+# Basic Usage
 
 1. Create client struct (e.g. `Hipchat.V2.Client.new/3`).
     - Pass `access_token` if the targeted API requires authentication.

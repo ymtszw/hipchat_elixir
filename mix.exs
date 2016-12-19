@@ -9,6 +9,7 @@ defmodule Hipchat.Mixfile do
       build_embedded:  Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       deps:            deps,
+      elixirc_paths:   paths,
     ]
   end
 
@@ -27,12 +28,19 @@ defmodule Hipchat.Mixfile do
 
   defp deps do
     [
+      {:hackney,        "1.6.3"                      },
+      {:poison,         "2.2.0"                      },
       {:exsync,         "~> 0.1", only: :dev         },
       {:mix_test_watch, "~> 0.2", only: :dev         },
       {:yamerl,         "~> 0.4", only: [:dev, :test]},
-      {:croma,          "~> 0.4"                     },
-      {:hackney,        "~> 1.6"                     },
-      {:poison,         "~> 2.2"                     },
     ]
+  end
+
+  defp paths do
+    case Mix.env do
+      :dev  -> ["lib", "generator"]
+      :test -> ["lib", "generator"]
+      _else -> ["lib"]
+    end
   end
 end
