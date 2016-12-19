@@ -13,7 +13,7 @@ defmodule Hipchat.V2.Api.Users do
 
   Accessible by group clients, users.
 
-  https://www.hipchat.com/docs/apiv2/method/get_all_users
+  [https://www.hipchat.com/docs/apiv2/method/get_all_users](https://www.hipchat.com/docs/apiv2/method/get_all_users)
   """
   @spec get_all_users(Client.t, list) :: Client.res_t
   def get_all_users(client, query_params) do

@@ -13,7 +13,7 @@ defmodule Hipchat.V2.Api.Rooms do
 
   Accessible by group clients, room clients, users.
 
-  https://www.hipchat.com/docs/apiv2/method/send_room_notification
+  [https://www.hipchat.com/docs/apiv2/method/send_room_notification](https://www.hipchat.com/docs/apiv2/method/send_room_notification)
   """
   @spec send_room_notification(Client.t, String.t, map) :: Client.res_t
   def send_room_notification(client, room_id_or_name, body) do

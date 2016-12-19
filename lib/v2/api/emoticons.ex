@@ -13,7 +13,7 @@ defmodule Hipchat.V2.Api.Emoticons do
 
   Accessible by group clients, room clients, users.
 
-  https://www.hipchat.com/docs/apiv2/method/get_all_emoticons
+  [https://www.hipchat.com/docs/apiv2/method/get_all_emoticons](https://www.hipchat.com/docs/apiv2/method/get_all_emoticons)
   """
   @spec get_all_emoticons(Client.t, list) :: Client.res_t
   def get_all_emoticons(client, query_params) do
@@ -27,7 +27,7 @@ defmodule Hipchat.V2.Api.Emoticons do
 
   Accessible by group clients, room clients, users.
 
-  https://www.hipchat.com/docs/apiv2/method/get_emoticon
+  [https://www.hipchat.com/docs/apiv2/method/get_emoticon](https://www.hipchat.com/docs/apiv2/method/get_emoticon)
   """
   @spec get_emoticon(Client.t, String.t) :: Client.res_t
   def get_emoticon(client, emoticon_id_or_key) do

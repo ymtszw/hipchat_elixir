@@ -13,7 +13,7 @@ defmodule Hipchat.V2.Api.Groups do
 
   Accessible by group clients, users.
 
-  https://www.hipchat.com/docs/apiv2/method/delete_group_avatar
+  [https://www.hipchat.com/docs/apiv2/method/delete_group_avatar](https://www.hipchat.com/docs/apiv2/method/delete_group_avatar)
   """
   @spec delete_group_avatar(Client.t, String.t) :: Client.res_t
   def delete_group_avatar(client, group_id) do
@@ -27,7 +27,7 @@ defmodule Hipchat.V2.Api.Groups do
 
   Accessible by group clients, users.
 
-  https://www.hipchat.com/docs/apiv2/method/view_group
+  [https://www.hipchat.com/docs/apiv2/method/view_group](https://www.hipchat.com/docs/apiv2/method/view_group)
   """
   @spec get_group(Client.t, String.t) :: Client.res_t
   def get_group(client, group_id) do
@@ -41,7 +41,7 @@ defmodule Hipchat.V2.Api.Groups do
 
   Accessible by group clients, users.
 
-  https://www.hipchat.com/docs/apiv2/method/get_group_avatar
+  [https://www.hipchat.com/docs/apiv2/method/get_group_avatar](https://www.hipchat.com/docs/apiv2/method/get_group_avatar)
   """
   @spec get_group_avatar(Client.t, String.t) :: Client.res_t
   def get_group_avatar(client, group_id) do
@@ -55,7 +55,7 @@ defmodule Hipchat.V2.Api.Groups do
 
   Accessible by group clients, users.
 
-  https://www.hipchat.com/docs/apiv2/method/group_statistics
+  [https://www.hipchat.com/docs/apiv2/method/group_statistics](https://www.hipchat.com/docs/apiv2/method/group_statistics)
   """
   @spec get_group_statistics(Client.t, String.t) :: Client.res_t
   def get_group_statistics(client, group_id) do
@@ -72,7 +72,7 @@ defmodule Hipchat.V2.Api.Groups do
 
   Accessible by group clients, users.
 
-  https://www.hipchat.com/docs/apiv2/method/update_group_avatar
+  [https://www.hipchat.com/docs/apiv2/method/update_group_avatar](https://www.hipchat.com/docs/apiv2/method/update_group_avatar)
   """
   @spec update_group_avatar(Client.t, String.t, map) :: Client.res_t
   def update_group_avatar(client, group_id, body) do

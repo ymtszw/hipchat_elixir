@@ -18,7 +18,7 @@ defmodule Hipchat.V2.Api.Extensions do
 
   Accessible by group clients.
 
-  https://www.hipchat.com/docs/apiv2/method/create_global_action
+  [https://www.hipchat.com/docs/apiv2/method/create_global_action](https://www.hipchat.com/docs/apiv2/method/create_global_action)
   """
   @spec create_global_action(Client.t, String.t, map) :: Client.res_t
   def create_global_action(client, key, body) do
@@ -32,7 +32,7 @@ defmodule Hipchat.V2.Api.Extensions do
 
   Accessible by group clients.
 
-  https://www.hipchat.com/docs/apiv2/method/delete_global_action
+  [https://www.hipchat.com/docs/apiv2/method/delete_global_action](https://www.hipchat.com/docs/apiv2/method/delete_global_action)
   """
   @spec delete_global_action(Client.t, String.t) :: Client.res_t
   def delete_global_action(client, key) do
@@ -46,7 +46,7 @@ defmodule Hipchat.V2.Api.Extensions do
 
   Accessible by group clients.
 
-  https://www.hipchat.com/docs/apiv2/method/get_global_action
+  [https://www.hipchat.com/docs/apiv2/method/get_global_action](https://www.hipchat.com/docs/apiv2/method/get_global_action)
   """
   @spec get_global_action(Client.t, String.t) :: Client.res_t
   def get_global_action(client, key) do

@@ -7,7 +7,7 @@ defmodule Hipchat.<%= String.upcase(version) %>.Api.<%= Macro.camelize(basename)
   alias Hipchat.<%= String.upcase(version) %>.Client<%= for {desc, method, identifier, path, path_params, has_query?, has_body?} <- apis do %>
 
   @doc """
-<%= String.trim_trailing(desc) |> String.split("\n") |> Enum.map_join("\n", fn "" -> ""; line -> "  #{line}" end) %>
+<%= String.trim_trailing(desc) |> String.split("\n") |> Enum.map_join("\n", fn "" -> ""; "https://" <> _ = link -> "  [#{link}](#{link})"; line -> "  #{line}" end) %>
   """
   @spec <%= identifier %>(<%= Enum.join(["Client.t" | Enum.map(path_params, fn _ -> "String.t" end)], ", ") %><%= if has_query?, do: ", list" %><%= if has_body?, do: ", map" %>) :: Client.res_t
   def <%= identifier %>(<%= Enum.join(["client" | path_params], ", ") %><%= if has_query?, do: ", query_params" %><%= if has_body?, do: ", body" %>) do
