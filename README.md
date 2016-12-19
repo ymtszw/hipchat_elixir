@@ -11,6 +11,7 @@ Depends on `hackney` for HTTP client.
 # Policy
 
 - No state. Access tokens and other credentials should be retrieved/stored by caller applications.
+    - Although, `hackney` application does have some states.
 - Relying HipChat cloud/server for parameter validations.
 - Cover APIs used in server side only.
 
@@ -26,6 +27,7 @@ Depends on `hackney` for HTTP client.
         - Personal access token
         - Room notification token
 2. Pass the resultant client and other parameters to the targeted API function.
+
   ```elixir
   retrieve_access_token # Implementation is up to your app
   |> Hipchat.V2.Client.new
