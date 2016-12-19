@@ -7,12 +7,6 @@ defmodule Hipchat.V2.Api.Users do
   alias Hipchat.V2.Client
 
   @doc """
-  List all users in the group.
-
-  Authentication required, with scope view_group.
-
-  Accessible by group clients, users.
-
   [https://www.hipchat.com/docs/apiv2/method/get_all_users](https://www.hipchat.com/docs/apiv2/method/get_all_users)
   """
   @spec get_all_users(Client.t, list) :: Client.res_t

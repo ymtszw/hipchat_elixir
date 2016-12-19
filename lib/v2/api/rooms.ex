@@ -7,12 +7,6 @@ defmodule Hipchat.V2.Api.Rooms do
   alias Hipchat.V2.Client
 
   @doc """
-  Send a message to a room with JSON payload. Other content-types are not included.
-
-  Authentication required, with scope send_notification.
-
-  Accessible by group clients, room clients, users.
-
   [https://www.hipchat.com/docs/apiv2/method/send_room_notification](https://www.hipchat.com/docs/apiv2/method/send_room_notification)
   """
   @spec send_room_notification(Client.t, String.t, map) :: Client.res_t

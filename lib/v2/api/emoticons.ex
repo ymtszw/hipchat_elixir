@@ -7,12 +7,6 @@ defmodule Hipchat.V2.Api.Emoticons do
   alias Hipchat.V2.Client
 
   @doc """
-  Gets all emoticons for the current group
-
-  Authentication required, with scope view_group.
-
-  Accessible by group clients, room clients, users.
-
   [https://www.hipchat.com/docs/apiv2/method/get_all_emoticons](https://www.hipchat.com/docs/apiv2/method/get_all_emoticons)
   """
   @spec get_all_emoticons(Client.t, list) :: Client.res_t
@@ -21,12 +15,6 @@ defmodule Hipchat.V2.Api.Emoticons do
   end
 
   @doc """
-  Get emoticon details.
-
-  Authentication required, with scope view_group.
-
-  Accessible by group clients, room clients, users.
-
   [https://www.hipchat.com/docs/apiv2/method/get_emoticon](https://www.hipchat.com/docs/apiv2/method/get_emoticon)
   """
   @spec get_emoticon(Client.t, String.t) :: Client.res_t

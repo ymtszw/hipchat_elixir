@@ -63,7 +63,8 @@ defmodule Hipchat.Generator do
         identifier = String.replace(summary, ~r/ +/, "_") |> String.downcase
         interpolatable_path = String.replace(path, "{", "\#{")
         {path_params, has_query?, has_body?} = api_detail |> Map.get("parameters", []) |> extract_params
-        {basename, {desc, method, identifier, interpolatable_path, path_params, has_query?, has_body?}}
+        link = String.split(desc, "\n", trim: true) |> Enum.reverse |> hd
+        {basename, {link, method, identifier, interpolatable_path, path_params, has_query?, has_body?}}
       end)
     end)
     |> Enum.group_by(&elem(&1, 0), &elem(&1, 1))

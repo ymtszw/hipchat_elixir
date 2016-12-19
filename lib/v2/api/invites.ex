@@ -7,12 +7,6 @@ defmodule Hipchat.V2.Api.Invites do
   alias Hipchat.V2.Client
 
   @doc """
-  Invites a user to join a group.
-
-  Authentication required, with scope admin_group.
-
-  Accessible by group clients, users.
-
   [https://www.hipchat.com/docs/apiv2/method/invite_user_to_group](https://www.hipchat.com/docs/apiv2/method/invite_user_to_group)
   """
   @spec invite_user_to_group(Client.t, map) :: Client.res_t

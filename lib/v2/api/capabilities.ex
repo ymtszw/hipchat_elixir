@@ -7,10 +7,6 @@ defmodule Hipchat.V2.Api.Capabilities do
   alias Hipchat.V2.Client
 
   @doc """
-  Gets the addon capabilities descriptor schema (JSON schema)
-
-  Authentication not required.
-
   [https://www.hipchat.com/docs/apiv2/method/get_addon_capabilities_schema](https://www.hipchat.com/docs/apiv2/method/get_addon_capabilities_schema)
   """
   @spec get_addon_capabilities_schema(Client.t, list) :: Client.res_t
@@ -19,10 +15,6 @@ defmodule Hipchat.V2.Api.Capabilities do
   end
 
   @doc """
-  Gets the capabilities descriptor for HipChat
-
-  Authentication not required.
-
   [https://www.hipchat.com/docs/apiv2/method/get_capabilities](https://www.hipchat.com/docs/apiv2/method/get_capabilities)
   """
   @spec get_capabilities(Client.t) :: Client.res_t

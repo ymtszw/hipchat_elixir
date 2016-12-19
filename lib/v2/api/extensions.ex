@@ -7,17 +7,6 @@ defmodule Hipchat.V2.Api.Extensions do
   alias Hipchat.V2.Client
 
   @doc """
-  Create a global action.
-
-  Dynamically created actions have the following restrictions:
-
-  - You can only create 10 global actions
-  - You cannot modify an action that was declared in the descriptor
-
-  Authentication required.
-
-  Accessible by group clients.
-
   [https://www.hipchat.com/docs/apiv2/method/create_global_action](https://www.hipchat.com/docs/apiv2/method/create_global_action)
   """
   @spec create_global_action(Client.t, String.t, map) :: Client.res_t
@@ -26,12 +15,6 @@ defmodule Hipchat.V2.Api.Extensions do
   end
 
   @doc """
-  Delete a global action. You cannot delete an action which was declared in the descriptor.
-
-  Authentication required.
-
-  Accessible by group clients.
-
   [https://www.hipchat.com/docs/apiv2/method/delete_global_action](https://www.hipchat.com/docs/apiv2/method/delete_global_action)
   """
   @spec delete_global_action(Client.t, String.t) :: Client.res_t
@@ -40,12 +23,6 @@ defmodule Hipchat.V2.Api.Extensions do
   end
 
   @doc """
-  Retrieve a global action.
-
-  Authentication required.
-
-  Accessible by group clients.
-
   [https://www.hipchat.com/docs/apiv2/method/get_global_action](https://www.hipchat.com/docs/apiv2/method/get_global_action)
   """
   @spec get_global_action(Client.t, String.t) :: Client.res_t
