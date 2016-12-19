@@ -1,6 +1,8 @@
 defmodule Hipchat.Mixfile do
   use Mix.Project
 
+  @github_url "https://github.com/ymtszw/hipchat_elixir"
+
   def project do
     [
       app:             :hipchat_elixir,
@@ -11,11 +13,12 @@ defmodule Hipchat.Mixfile do
       deps:            deps,
       elixirc_paths:   paths,
       description:     "HiChat client library for Elixir",
+      source_url:      @github_url,
       package:         [
         files:       ["lib", "mix.exs", "LICENSE", "README.md"],
         licenses:    ["MIT"],
         maintainers: ["Yu Matsuzawa"],
-        links:       %{"GitHub" => "https://github.com/ymtszw/hipchat_elixir"},
+        links:       %{"GitHub" => @github_url},
       ],
     ]
   end
