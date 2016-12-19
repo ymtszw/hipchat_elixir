@@ -30,13 +30,6 @@ defmodule Hipchat.Generator do
     |> Enum.each(&File.mkdir_p!(&1))
   end
 
-  defp write_file(target, content) do
-    case File.write(target, content) do
-      :ok              -> IO.puts(IO.ANSI.format([:green, "Generated: ", :reset, target]))
-      {:error, reason} -> IO.puts(IO.ANSI.format([:red, "Error: ", :reset, inspect(reason)]))
-    end
-  end
-
   defp generate_client(version, host, base_path) do
     template = Path.join([__DIR__, "template", "client.eex"])
     target   = Path.join([@lib_dir, version, "client.ex"])
@@ -52,6 +45,13 @@ defmodule Hipchat.Generator do
       content = EEx.eval_file(template, version: version, basename: basename, apis: Enum.sort_by(apis, &elem(&1, 2)))
       write_file(target, content)
     end)
+  end
+
+  defp write_file(target, content) do
+    case File.write(target, content) do
+      :ok              -> IO.puts(IO.ANSI.format([:green, "Generated: ", :reset, target]))
+      {:error, reason} -> IO.puts(IO.ANSI.format([:red, "Error: ", :reset, inspect(reason)]))
+    end
   end
 
   defp normalize_paths(paths) do

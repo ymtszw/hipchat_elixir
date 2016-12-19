@@ -7,7 +7,7 @@ defmodule Hipchat.V2.Api.Capabilities do
   alias Hipchat.V2.Client
 
   @doc """
-  Gets the addon capabilities descriptor schema
+  Gets the addon capabilities descriptor schema (JSON schema)
 
   Authentication not required.
 
