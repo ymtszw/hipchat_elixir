@@ -30,7 +30,7 @@ defmodule Hipchat.Generator do
     template = Path.join([__DIR__, "template", "api.eex"])
     normalize_paths(paths)
     |> Enum.each(fn {basename, apis} ->
-      target  = Path.join([@lib_dir, version, String.downcase(basename) <> ".ex"])
+      target  = Path.join([@lib_dir, version, Macro.underscore(basename) <> ".ex"])
       params  = [
         version:   version,
         host:      host,
@@ -56,8 +56,9 @@ defmodule Hipchat.Generator do
         %{
           "summary"     => summary,
           "description" => desc,
-          "tags"        => [basename], # Assuming only one tag per API.
+          "tags"        => [tag], # Assuming only one tag per API.
         } = api_detail
+        basename = String.replace(tag, " ", "")
         identifier = String.replace(summary, ~r/ +/, "_") |> String.downcase
         interpolatable_path = String.replace(path, "{", "\#{")
         {path_params, has_query?, has_body?} = api_detail |> Map.get("parameters", []) |> extract_params
