@@ -1,4 +1,6 @@
 defmodule Hipchat.Generator do
+  @moduledoc false
+
   alias Hipchat.Generator.Yaml
 
   @root_dir   Path.expand(Path.join([__DIR__, ".."]))

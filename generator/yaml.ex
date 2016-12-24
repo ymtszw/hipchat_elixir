@@ -1,10 +1,5 @@
 defmodule Hipchat.Generator.Yaml do
-  @moduledoc """
-  YAML to map converter.
-
-  Meant to be used in ex_hipchat.generate mix task.
-  Using [ymerl](https://github.com/yakaz/yamerl) inside.
-  """
+  @moduledoc false
 
   @spec from_file(Path.t) :: {:ok, map} | {:error, term}
   def from_file(file_name) do

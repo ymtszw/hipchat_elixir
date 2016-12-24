@@ -1,16 +1,14 @@
 defmodule Hipchat.Httpc do
   @moduledoc """
-  Thin wrapper around hackney.
+  Thin wrapper around hackney. Used in all API functions.
   """
-
-  @type method_t :: :get | :post | :put | :delete
 
   defmodule Response do
     @moduledoc """
     Struct module for response of `Httpc.request/5`.
 
     All keys in `headers` are downcased.
-    If `body` is not empty, it should be JSON string.
+    If `body` is not empty, it should be a JSON string.
     """
 
     defstruct [:status, :headers, :body]
@@ -33,13 +31,18 @@ defmodule Hipchat.Httpc do
     end
   end
 
+  @type method_t  :: :get | :post | :put | :delete
+  @type headers_t :: [{String.t, String.t}]
+  @type options_t :: list
+  @type res_t     :: {:ok, Response.t} | {:error, term}
+
   @doc """
   Send HTTP request with the given parameters.
 
   `options` accepts any options available in `:hackney.request/5`.
-  Additionally, `:params` option can take query params as `[{String.t, String.t}]`.
+  Additionally, `:params` option can take query params as `Hipchat.Client.query_params_t`.
   """
-  @spec request(method_t, String.t, term, [{String.t, String.t}], Keyword.t) :: {:ok, Response.t} | {:error, term}
+  @spec request(method_t, String.t, term, headers_t, options_t) :: res_t
   def request(method, url, body, headers, options \\ []) do
     url1     = append_params(url, options)
     options1 = [{:with_body, true} | options]
