@@ -15,7 +15,7 @@ defmodule Hipchat.Mixfile do
       description:     "HiChat client library for Elixir",
       source_url:      @github_url,
       package:         [
-        files:       ["lib", "mix.exs", "LICENSE", "README.md"],
+        files:       ["lib", "mix.exs", "LICENSE", "README.md", "CHANGELOG.md"],
         licenses:    ["MIT"],
         maintainers: ["Yu Matsuzawa"],
         links:       %{"GitHub" => @github_url},
