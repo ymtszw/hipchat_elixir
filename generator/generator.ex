@@ -18,31 +18,27 @@ defmodule Hipchat.Generator do
         "paths" => paths,
       }} = Yaml.from_file(spec_file)
       ensure_directories(version)
-      generate_client(version, host, base_path)
-      generate_apis(version, paths)
+      generate_apis(version, host, base_path, paths)
     end)
   end
 
   defp ensure_directories(version) do
-    [
-      Path.join([@lib_dir, version, "api"]),
-    ]
-    |> Enum.each(&File.mkdir_p!(&1))
+    File.mkdir_p!(Path.join([@lib_dir, version]))
   end
 
-  defp generate_client(version, host, base_path) do
-    template = Path.join([__DIR__, "template", "client.eex"])
-    target   = Path.join([@lib_dir, version, "client.ex"])
-    content  = EEx.eval_file(template, version: version, host: host, base_path: base_path)
-    write_file(target, content)
-  end
-
-  defp generate_apis(version, paths) do
+  defp generate_apis(version, host, base_path, paths) do
     template = Path.join([__DIR__, "template", "api.eex"])
     normalize_paths(paths)
     |> Enum.each(fn {basename, apis} ->
-      target  = Path.join([@lib_dir, version, "api", String.downcase(basename) <> ".ex"])
-      content = EEx.eval_file(template, version: version, basename: basename, apis: Enum.sort_by(apis, &elem(&1, 2)))
+      target  = Path.join([@lib_dir, version, String.downcase(basename) <> ".ex"])
+      params  = [
+        version:   version,
+        host:      host,
+        base_path: base_path,
+        basename:  basename,
+        apis:      Enum.sort_by(apis, &elem(&1, 2)),
+      ]
+      content = EEx.eval_file(template, params)
       write_file(target, content)
     end)
   end
