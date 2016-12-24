@@ -11,7 +11,7 @@ defmodule Hipchat.V2.Emoticons do
   @doc """
   [https://www.hipchat.com/docs/apiv2/method/get_all_emoticons](https://www.hipchat.com/docs/apiv2/method/get_all_emoticons)
   """
-  @spec get_all_emoticons(Client.t, list) :: Httpc.res_t
+  @spec get_all_emoticons(Client.t, Client.query_params_t) :: Httpc.res_t
   def get_all_emoticons(client, query_params) do
     Httpc.request(:get,
                   "#{@endpoint}/emoticon",

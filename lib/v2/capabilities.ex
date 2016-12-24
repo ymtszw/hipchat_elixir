@@ -11,7 +11,7 @@ defmodule Hipchat.V2.Capabilities do
   @doc """
   [https://www.hipchat.com/docs/apiv2/method/get_addon_capabilities_schema](https://www.hipchat.com/docs/apiv2/method/get_addon_capabilities_schema)
   """
-  @spec get_addon_capabilities_schema(Client.t, list) :: Httpc.res_t
+  @spec get_addon_capabilities_schema(Client.t, Client.query_params_t) :: Httpc.res_t
   def get_addon_capabilities_schema(client, query_params) do
     Httpc.request(:get,
                   "#{@endpoint}/capabilities/addon/schema",

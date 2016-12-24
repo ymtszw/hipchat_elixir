@@ -11,7 +11,7 @@ defmodule Hipchat.<%= String.upcase(version) %>.<%= Macro.camelize(basename) %> 
   @doc """
   <%= "[#{link}](#{link})" %>
   """
-  @spec <%= identifier %>(<%= Enum.join(["Client.t" | Enum.map(path_params, fn _ -> "String.t" end)], ", ") %><%= if has_query?, do: ", list" %><%= if has_body?, do: ", map" %>) :: Httpc.res_t
+  @spec <%= identifier %>(<%= Enum.join(["Client.t" | Enum.map(path_params, fn _ -> "String.t" end)], ", ") %><%= if has_query?, do: ", Client.query_params_t" %><%= if has_body?, do: ", map" %>) :: Httpc.res_t
   def <%= identifier %>(<%= Enum.join(["client" | path_params], ", ") %><%= if has_query?, do: ", query_params" %><%= if has_body?, do: ", body" %>) do
     Httpc.request(:<%= method %>,
                   "#{@endpoint}<%= path %>",

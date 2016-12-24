@@ -11,7 +11,7 @@ defmodule Hipchat.V2.Users do
   @doc """
   [https://www.hipchat.com/docs/apiv2/method/get_all_users](https://www.hipchat.com/docs/apiv2/method/get_all_users)
   """
-  @spec get_all_users(Client.t, list) :: Httpc.res_t
+  @spec get_all_users(Client.t, Client.query_params_t) :: Httpc.res_t
   def get_all_users(client, query_params) do
     Httpc.request(:get,
                   "#{@endpoint}/user",
