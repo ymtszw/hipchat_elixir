@@ -21,6 +21,18 @@ defmodule Hipchat.V2.Users do
   end
 
   @doc """
+  [https://www.hipchat.com/docs/apiv2/method/delete_photo](https://www.hipchat.com/docs/apiv2/method/delete_photo)
+  """
+  @spec delete_photo(Client.t, String.t) :: Httpc.res_t
+  def delete_photo(client, id_or_email) do
+    Httpc.request(:delete,
+                  "#{@endpoint}/user/#{id_or_email}/photo",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
   [https://www.hipchat.com/docs/apiv2/method/delete_user](https://www.hipchat.com/docs/apiv2/method/delete_user)
   """
   @spec delete_user(Client.t, String.t) :: Httpc.res_t
@@ -42,6 +54,30 @@ defmodule Hipchat.V2.Users do
                   "",
                   Client.headers(client),
                   Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/get_auto_join_rooms](https://www.hipchat.com/docs/apiv2/method/get_auto_join_rooms)
+  """
+  @spec get_auto_join_rooms(Client.t, String.t, Client.query_params_t) :: Httpc.res_t
+  def get_auto_join_rooms(client, id_or_email, query_params) do
+    Httpc.request(:get,
+                  "#{@endpoint}/user/#{id_or_email}/preference/auto-join",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/get_photo](https://www.hipchat.com/docs/apiv2/method/get_photo)
+  """
+  @spec get_photo(Client.t, String.t, String.t) :: Httpc.res_t
+  def get_photo(client, id_or_email, size) do
+    Httpc.request(:get,
+                  "#{@endpoint}/user/#{id_or_email}/photo/#{size}",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
   end
 
   @doc """
@@ -99,6 +135,30 @@ defmodule Hipchat.V2.Users do
   def send_privatechat_message(client, id_or_email, body) do
     Httpc.request(:post,
                   "#{@endpoint}/user/#{id_or_email}/message",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/share_link_with_user](https://www.hipchat.com/docs/apiv2/method/share_link_with_user)
+  """
+  @spec share_link_with_user(Client.t, String.t, map) :: Httpc.res_t
+  def share_link_with_user(client, id_or_email, body) do
+    Httpc.request(:post,
+                  "#{@endpoint}/user/#{id_or_email}/share/link",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/update_photo](https://www.hipchat.com/docs/apiv2/method/update_photo)
+  """
+  @spec update_photo(Client.t, String.t, map) :: Httpc.res_t
+  def update_photo(client, id_or_email, body) do
+    Httpc.request(:put,
+                  "#{@endpoint}/user/#{id_or_email}/photo",
                   {:form, Map.to_list(body)},
                   Client.headers(client),
                   Client.options(client, []))
