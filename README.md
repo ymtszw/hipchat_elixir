@@ -4,7 +4,8 @@
 
 HipChat client library for [Elixir](http://elixir-lang.org).
 
-Generated from HipChat Swagger API specifications in [ymtszw/hipchat_swagger](https://github.com/ymtszw/hipchat_swagger).
+- [API Documentation](https://hexdocs.pm/hipchat_elixir/api-reference.html)
+- Generated from HipChat Swagger API specifications in [ymtszw/hipchat_swagger](https://github.com/ymtszw/hipchat_swagger).
 
 Depends on `hackney` for HTTP client.
 
@@ -86,7 +87,7 @@ They must be visible only to their owners and trusted third parties, as with any
 
 # Code generation
 
-Generating codes from [ymtszw/hipchat_swagger](https://github.com/ymtszw/hipchat_swagger), with below rules:
+This library codes are generated from [ymtszw/hipchat_swagger](https://github.com/ymtszw/hipchat_swagger), with below rules:
 
 - Treat each API's:
     - `summary` as identifiers (i.e. source of function names), with lower-casing and underscoring.
