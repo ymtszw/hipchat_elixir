@@ -84,6 +84,20 @@ they come in very handy.
 **Be sure to properly control visibility of those tokens**.
 They must be visible only to their owners and trusted third parties, as with any other similar API credentials out in the world.
 
+# Code generation
+
+Generating codes from [ymtszw/hipchat_swagger](https://github.com/ymtszw/hipchat_swagger), with below rules:
+
+- Treat each API's:
+    - `summary` as identifiers (i.e. source of function names), with lower-casing and underscoring.
+    - `description` as `@doc` contents, though expecting only links to official API docs.
+    - `tags` as API categories, with camel-casing. They are used for separating modules (files). Expecting only **one** tag per API.
+- Basically discarding parameters' schema/type information, at least currently.
+- Response information are discarded too.
+- Request bodies are sent as formdata. Since `hackney` can send key-value data list as formdata by itself.
+    - To send as JSONs, we must introduce some JSON serializer library, which could be `poison`, `jsone` or whatever, depending on users.
+      I want to reduce the number of runtime dependencies.
+
 # Todo
 
 - [ ] Generate other APIs.
