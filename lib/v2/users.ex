@@ -9,6 +9,30 @@ defmodule Hipchat.V2.Users do
   @endpoint "https://api.hipchat.com/v2"
 
   @doc """
+  [https://www.hipchat.com/docs/apiv2/method/create_user](https://www.hipchat.com/docs/apiv2/method/create_user)
+  """
+  @spec create_user(Client.t, map) :: Httpc.res_t
+  def create_user(client, body) do
+    Httpc.request(:post,
+                  "#{@endpoint}/user",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/delete_user](https://www.hipchat.com/docs/apiv2/method/delete_user)
+  """
+  @spec delete_user(Client.t, String.t) :: Httpc.res_t
+  def delete_user(client, id_or_email) do
+    Httpc.request(:delete,
+                  "#{@endpoint}/user/#{id_or_email}",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
   [https://www.hipchat.com/docs/apiv2/method/get_all_users](https://www.hipchat.com/docs/apiv2/method/get_all_users)
   """
   @spec get_all_users(Client.t, Client.query_params_t) :: Httpc.res_t
@@ -18,5 +42,77 @@ defmodule Hipchat.V2.Users do
                   "",
                   Client.headers(client),
                   Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/view_privatechat_history](https://www.hipchat.com/docs/apiv2/method/view_privatechat_history)
+  """
+  @spec get_privatechat_history(Client.t, String.t, Client.query_params_t) :: Httpc.res_t
+  def get_privatechat_history(client, id_or_email, query_params) do
+    Httpc.request(:get,
+                  "#{@endpoint}/user/#{id_or_email}/history",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/get_privatechat_message](https://www.hipchat.com/docs/apiv2/method/get_privatechat_message)
+  """
+  @spec get_privatechat_message(Client.t, String.t, String.t, Client.query_params_t) :: Httpc.res_t
+  def get_privatechat_message(client, id_or_email, message_id, query_params) do
+    Httpc.request(:get,
+                  "#{@endpoint}/user/#{id_or_email}/history/#{message_id}",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/view_recent_privatechat_history](https://www.hipchat.com/docs/apiv2/method/view_recent_privatechat_history)
+  """
+  @spec get_recent_privatechat_history(Client.t, String.t, Client.query_params_t) :: Httpc.res_t
+  def get_recent_privatechat_history(client, id_or_email, query_params) do
+    Httpc.request(:get,
+                  "#{@endpoint}/user/#{id_or_email}/history/latest",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/view_user](https://www.hipchat.com/docs/apiv2/method/view_user)
+  """
+  @spec get_user(Client.t, String.t) :: Httpc.res_t
+  def get_user(client, id_or_email) do
+    Httpc.request(:get,
+                  "#{@endpoint}/user/#{id_or_email}",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/private_message_user](https://www.hipchat.com/docs/apiv2/method/private_message_user)
+  """
+  @spec send_privatechat_message(Client.t, String.t, map) :: Httpc.res_t
+  def send_privatechat_message(client, id_or_email, body) do
+    Httpc.request(:post,
+                  "#{@endpoint}/user/#{id_or_email}/message",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/update_user](https://www.hipchat.com/docs/apiv2/method/update_user)
+  """
+  @spec update_user(Client.t, String.t, map) :: Httpc.res_t
+  def update_user(client, id_or_email, body) do
+    Httpc.request(:put,
+                  "#{@endpoint}/user/#{id_or_email}",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
   end
 end
