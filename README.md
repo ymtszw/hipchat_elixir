@@ -9,6 +9,12 @@ HipChat client library for [Elixir](http://elixir-lang.org).
 
 Depends on `hackney` for HTTP client.
 
+# Status
+
+Basic chat related APIs (CRUD operation of rooms/users, sending messages/notifications) are covered.
+
+Add-on (extension) related APIs are yet to be covered.
+
 # Policy
 
 - No state. Access tokens and other credentials should be retrieved/stored by caller applications.
