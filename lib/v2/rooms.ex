@@ -9,12 +9,288 @@ defmodule Hipchat.V2.Rooms do
   @endpoint "https://api.hipchat.com/v2"
 
   @doc """
+  [https://www.hipchat.com/docs/apiv2/method/add_member](https://www.hipchat.com/docs/apiv2/method/add_member)
+  """
+  @spec add_member(Client.t, String.t, String.t, map) :: Httpc.res_t
+  def add_member(client, room_id_or_name, user_id_or_email, body) do
+    Httpc.request(:put,
+                  "#{@endpoint}/room/#{room_id_or_name}/member/#{user_id_or_email}",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/create_room](https://www.hipchat.com/docs/apiv2/method/create_room)
+  """
+  @spec create_room(Client.t, map) :: Httpc.res_t
+  def create_room(client, body) do
+    Httpc.request(:post,
+                  "#{@endpoint}/room",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/create_room_action](https://www.hipchat.com/docs/apiv2/method/create_room_action)
+  """
+  @spec create_room_action(Client.t, String.t, String.t, map) :: Httpc.res_t
+  def create_room_action(client, room_id_or_name, key, body) do
+    Httpc.request(:put,
+                  "#{@endpoint}/room/#{room_id_or_name}/extension/action/#{key}",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/delete_room](https://www.hipchat.com/docs/apiv2/method/delete_room)
+  """
+  @spec delete_room(Client.t, String.t) :: Httpc.res_t
+  def delete_room(client, room_id_or_name) do
+    Httpc.request(:delete,
+                  "#{@endpoint}/room/#{room_id_or_name}",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/delete_room_action](https://www.hipchat.com/docs/apiv2/method/delete_room_action)
+  """
+  @spec delete_room_action(Client.t, String.t, String.t) :: Httpc.res_t
+  def delete_room_action(client, room_id_or_name, key) do
+    Httpc.request(:delete,
+                  "#{@endpoint}/room/#{room_id_or_name}/extension/action/#{key}",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/delete_room_avatar](https://www.hipchat.com/docs/apiv2/method/delete_room_avatar)
+  """
+  @spec delete_room_avatar(Client.t, String.t) :: Httpc.res_t
+  def delete_room_avatar(client, room_id_or_name) do
+    Httpc.request(:delete,
+                  "#{@endpoint}/room/#{room_id_or_name}/avatar",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/get_all_members](https://www.hipchat.com/docs/apiv2/method/get_all_members)
+  """
+  @spec get_all_members(Client.t, String.t, Client.query_params_t) :: Httpc.res_t
+  def get_all_members(client, room_id_or_name, query_params) do
+    Httpc.request(:get,
+                  "#{@endpoint}/room/#{room_id_or_name}/member",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/get_all_participants](https://www.hipchat.com/docs/apiv2/method/get_all_participants)
+  """
+  @spec get_all_participants(Client.t, String.t, Client.query_params_t) :: Httpc.res_t
+  def get_all_participants(client, room_id_or_name, query_params) do
+    Httpc.request(:get,
+                  "#{@endpoint}/room/#{room_id_or_name}/participant",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/get_all_rooms](https://www.hipchat.com/docs/apiv2/method/get_all_rooms)
+  """
+  @spec get_all_rooms(Client.t, Client.query_params_t) :: Httpc.res_t
+  def get_all_rooms(client, query_params) do
+    Httpc.request(:get,
+                  "#{@endpoint}/room",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/view_recent_room_history](https://www.hipchat.com/docs/apiv2/method/view_recent_room_history)
+  """
+  @spec get_recent_room_history(Client.t, String.t, Client.query_params_t) :: Httpc.res_t
+  def get_recent_room_history(client, room_id_or_name, query_params) do
+    Httpc.request(:get,
+                  "#{@endpoint}/room/#{room_id_or_name}/history/latest",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/get_room](https://www.hipchat.com/docs/apiv2/method/get_room)
+  """
+  @spec get_room(Client.t, String.t) :: Httpc.res_t
+  def get_room(client, room_id_or_name) do
+    Httpc.request(:get,
+                  "#{@endpoint}/room/#{room_id_or_name}",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/get_room_action](https://www.hipchat.com/docs/apiv2/method/get_room_action)
+  """
+  @spec get_room_action(Client.t, String.t, String.t) :: Httpc.res_t
+  def get_room_action(client, room_id_or_name, key) do
+    Httpc.request(:get,
+                  "#{@endpoint}/room/#{room_id_or_name}/extension/action/#{key}",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/get_room_avatar](https://www.hipchat.com/docs/apiv2/method/get_room_avatar)
+  """
+  @spec get_room_avatar(Client.t, String.t) :: Httpc.res_t
+  def get_room_avatar(client, room_id_or_name) do
+    Httpc.request(:get,
+                  "#{@endpoint}/room/#{room_id_or_name}/avatar",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/view_room_history](https://www.hipchat.com/docs/apiv2/method/view_room_history)
+  """
+  @spec get_room_history(Client.t, String.t, Client.query_params_t) :: Httpc.res_t
+  def get_room_history(client, room_id_or_name, query_params) do
+    Httpc.request(:get,
+                  "#{@endpoint}/room/#{room_id_or_name}/history",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/get_room_message](https://www.hipchat.com/docs/apiv2/method/get_room_message)
+  """
+  @spec get_room_message(Client.t, String.t, String.t, Client.query_params_t) :: Httpc.res_t
+  def get_room_message(client, room_id_or_name, message_id, query_params) do
+    Httpc.request(:get,
+                  "#{@endpoint}/room/#{room_id_or_name}/history/#{message_id}",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, query_params))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/get_room_statistics](https://www.hipchat.com/docs/apiv2/method/get_room_statistics)
+  """
+  @spec get_room_statistics(Client.t, String.t) :: Httpc.res_t
+  def get_room_statistics(client, room_id_or_name) do
+    Httpc.request(:get,
+                  "#{@endpoint}/room/#{room_id_or_name}/statistics",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/invite_user](https://www.hipchat.com/docs/apiv2/method/invite_user)
+  """
+  @spec invite_user(Client.t, String.t, String.t, map) :: Httpc.res_t
+  def invite_user(client, room_id_or_name, user_id_or_email, body) do
+    Httpc.request(:post,
+                  "#{@endpoint}/room/#{room_id_or_name}/invite/#{user_id_or_email}",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/remove_member](https://www.hipchat.com/docs/apiv2/method/remove_member)
+  """
+  @spec remove_member(Client.t, String.t, String.t) :: Httpc.res_t
+  def remove_member(client, room_id_or_name, user_id_or_email) do
+    Httpc.request(:delete,
+                  "#{@endpoint}/room/#{room_id_or_name}/member/#{user_id_or_email}",
+                  "",
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/reply_to_message](https://www.hipchat.com/docs/apiv2/method/reply_to_message)
+  """
+  @spec reply_to_message(Client.t, String.t, map) :: Httpc.res_t
+  def reply_to_message(client, room_id_or_name, body) do
+    Httpc.request(:post,
+                  "#{@endpoint}/room/#{room_id_or_name}/reply",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/send_message](https://www.hipchat.com/docs/apiv2/method/send_message)
+  """
+  @spec send_message(Client.t, String.t, map) :: Httpc.res_t
+  def send_message(client, room_id_or_name, body) do
+    Httpc.request(:post,
+                  "#{@endpoint}/room/#{room_id_or_name}/message",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
   [https://www.hipchat.com/docs/apiv2/method/send_room_notification](https://www.hipchat.com/docs/apiv2/method/send_room_notification)
   """
   @spec send_room_notification(Client.t, String.t, map) :: Httpc.res_t
   def send_room_notification(client, room_id_or_name, body) do
     Httpc.request(:post,
                   "#{@endpoint}/room/#{room_id_or_name}/notification",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/share_link_with_room](https://www.hipchat.com/docs/apiv2/method/share_link_with_room)
+  """
+  @spec share_link_with_room(Client.t, String.t, map) :: Httpc.res_t
+  def share_link_with_room(client, room_id_or_name, body) do
+    Httpc.request(:post,
+                  "#{@endpoint}/room/#{room_id_or_name}/share/link",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/update_room](https://www.hipchat.com/docs/apiv2/method/update_room)
+  """
+  @spec update_room(Client.t, String.t, map) :: Httpc.res_t
+  def update_room(client, room_id_or_name, body) do
+    Httpc.request(:put,
+                  "#{@endpoint}/room/#{room_id_or_name}",
+                  {:form, Map.to_list(body)},
+                  Client.headers(client),
+                  Client.options(client, []))
+  end
+
+  @doc """
+  [https://www.hipchat.com/docs/apiv2/method/update_room_avatar](https://www.hipchat.com/docs/apiv2/method/update_room_avatar)
+  """
+  @spec update_room_avatar(Client.t, String.t, map) :: Httpc.res_t
+  def update_room_avatar(client, room_id_or_name, body) do
+    Httpc.request(:put,
+                  "#{@endpoint}/room/#{room_id_or_name}/avatar",
                   {:form, Map.to_list(body)},
                   Client.headers(client),
                   Client.options(client, []))
