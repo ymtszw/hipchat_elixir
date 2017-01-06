@@ -107,7 +107,8 @@ This library codes are generated from [ymtszw/hipchat_swagger](https://github.co
 
 # Todo
 
-- [ ] Generate other APIs.
+- [x] Generate basic APIs.
+- [ ] Generate Add-on specific APIs.
 - [x] Helper client for handling OAuth client ID and secrets to retrieve short-lived Add-on token or User token.
     - Ready to be used. See `Hipchat.OauthClient`.
 
