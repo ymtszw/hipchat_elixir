@@ -15,7 +15,7 @@ defmodule Hipchat.V2.Rooms do
   def add_member(client, room_id_or_name, user_id_or_email, body) do
     Httpc.request(:put,
                   "#{@endpoint}/room/#{room_id_or_name}/member/#{user_id_or_email}",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -27,7 +27,7 @@ defmodule Hipchat.V2.Rooms do
   def create_room(client, body) do
     Httpc.request(:post,
                   "#{@endpoint}/room",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -39,7 +39,7 @@ defmodule Hipchat.V2.Rooms do
   def create_room_action(client, room_id_or_name, key, body) do
     Httpc.request(:put,
                   "#{@endpoint}/room/#{room_id_or_name}/extension/action/#{key}",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -207,7 +207,7 @@ defmodule Hipchat.V2.Rooms do
   def invite_user(client, room_id_or_name, user_id_or_email, body) do
     Httpc.request(:post,
                   "#{@endpoint}/room/#{room_id_or_name}/invite/#{user_id_or_email}",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -231,7 +231,7 @@ defmodule Hipchat.V2.Rooms do
   def reply_to_message(client, room_id_or_name, body) do
     Httpc.request(:post,
                   "#{@endpoint}/room/#{room_id_or_name}/reply",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -243,7 +243,7 @@ defmodule Hipchat.V2.Rooms do
   def send_message(client, room_id_or_name, body) do
     Httpc.request(:post,
                   "#{@endpoint}/room/#{room_id_or_name}/message",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -255,7 +255,7 @@ defmodule Hipchat.V2.Rooms do
   def send_room_notification(client, room_id_or_name, body) do
     Httpc.request(:post,
                   "#{@endpoint}/room/#{room_id_or_name}/notification",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -267,7 +267,7 @@ defmodule Hipchat.V2.Rooms do
   def share_link_with_room(client, room_id_or_name, body) do
     Httpc.request(:post,
                   "#{@endpoint}/room/#{room_id_or_name}/share/link",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -279,7 +279,7 @@ defmodule Hipchat.V2.Rooms do
   def update_room(client, room_id_or_name, body) do
     Httpc.request(:put,
                   "#{@endpoint}/room/#{room_id_or_name}",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -291,7 +291,7 @@ defmodule Hipchat.V2.Rooms do
   def update_room_avatar(client, room_id_or_name, body) do
     Httpc.request(:put,
                   "#{@endpoint}/room/#{room_id_or_name}/avatar",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end

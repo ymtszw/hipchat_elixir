@@ -15,7 +15,7 @@ defmodule Hipchat.V2.Invites do
   def invite_user_to_group(client, body) do
     Httpc.request(:post,
                   "#{@endpoint}/invite/user",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end

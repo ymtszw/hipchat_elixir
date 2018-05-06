@@ -15,7 +15,7 @@ defmodule Hipchat.V2.Extensions do
   def create_global_action(client, key, body) do
     Httpc.request(:put,
                   "#{@endpoint}/extension/action/#{key}",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end

@@ -44,9 +44,10 @@ defmodule Hipchat.Httpc do
   """
   @spec request(method_t, String.t, term, headers_t, options_t) :: res_t
   def request(method, url, body, headers, options \\ []) do
-    url1     = append_params(url, options)
-    options1 = [{:with_body, true} | options]
-    case :hackney.request(method, url1, headers, body, options1) do
+    url1              = append_params(url, options)
+    options1          = [{:with_body, true} | options]
+    {body1, headers1} = serialize_body(body, headers)
+    case :hackney.request(method, url1, headers1, body1, options1) do
       {:ok, status, resp_headers, resp_body} -> Response.new(status, convert_resp_headers(resp_headers), resp_body)
       {:ok, status, resp_headers}            -> Response.new(status, convert_resp_headers(resp_headers), "")
       # Won't use stream mode so its branch is omitted
@@ -59,6 +60,14 @@ defmodule Hipchat.Httpc do
       [_ | _] = params -> url <> "?" <> URI.encode_query(params)
       _empty_or_nil    -> url
     end
+  end
+
+  @serializer Application.get_env(:hipchat_elixir, :serializer, Poison)
+  case Code.ensure_loaded(@serializer) do
+    {:module, Poison} ->
+      defp serialize_body(body, headers), do: {Poison.encode!(body), [{"content-type", "application/json"} | headers]}
+    {:error, _} ->
+      defp serialize_body(body, headers), do: {{:form, Map.to_list(body)}, headers}
   end
 
   defp convert_resp_headers(resp_headers) do

@@ -15,7 +15,7 @@ defmodule Hipchat.<%= String.upcase(version) %>.<%= Macro.camelize(basename) %> 
   def <%= identifier %>(<%= Enum.join(["client" | path_params], ", ") %><%= if has_query?, do: ", query_params" %><%= if has_body?, do: ", body" %>) do
     Httpc.request(:<%= method %>,
                   "#{@endpoint}<%= path %>",
-                  <%= if has_body?, do: "{:form, Map.to_list(body)}", else: "\"\"" %>,
+                  <%= if has_body?, do: "body", else: "\"\"" %>,
                   Client.headers(client),
                   Client.options(client, <%= if has_query?, do: "query_params", else: "[]" %>))
   end<% end %>

@@ -15,7 +15,7 @@ defmodule Hipchat.V2.Users do
   def create_user(client, body) do
     Httpc.request(:post,
                   "#{@endpoint}/user",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -135,7 +135,7 @@ defmodule Hipchat.V2.Users do
   def send_privatechat_message(client, id_or_email, body) do
     Httpc.request(:post,
                   "#{@endpoint}/user/#{id_or_email}/message",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -147,7 +147,7 @@ defmodule Hipchat.V2.Users do
   def share_link_with_user(client, id_or_email, body) do
     Httpc.request(:post,
                   "#{@endpoint}/user/#{id_or_email}/share/link",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -159,7 +159,7 @@ defmodule Hipchat.V2.Users do
   def update_photo(client, id_or_email, body) do
     Httpc.request(:put,
                   "#{@endpoint}/user/#{id_or_email}/photo",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -171,7 +171,7 @@ defmodule Hipchat.V2.Users do
   def update_user(client, id_or_email, body) do
     Httpc.request(:put,
                   "#{@endpoint}/user/#{id_or_email}",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end

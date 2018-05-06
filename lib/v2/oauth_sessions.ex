@@ -27,7 +27,7 @@ defmodule Hipchat.V2.OauthSessions do
   def generate_token(client, body) do
     Httpc.request(:post,
                   "#{@endpoint}/oauth/token",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end

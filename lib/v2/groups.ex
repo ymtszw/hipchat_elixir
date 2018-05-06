@@ -63,7 +63,7 @@ defmodule Hipchat.V2.Groups do
   def update_group_avatar(client, group_id, body) do
     Httpc.request(:put,
                   "#{@endpoint}/group/#{group_id}/avatar",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end

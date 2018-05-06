@@ -15,7 +15,7 @@ defmodule Hipchat.V2.Integrations do
   def addon_ui_update(client, body) do
     Httpc.request(:post,
                   "#{@endpoint}/addon/ui",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -27,7 +27,7 @@ defmodule Hipchat.V2.Integrations do
   def create_integration_link(client, body) do
     Httpc.request(:post,
                   "#{@endpoint}/addon/link",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -51,7 +51,7 @@ defmodule Hipchat.V2.Integrations do
   def room_addon_ui_update(client, room_id_or_name, body) do
     Httpc.request(:post,
                   "#{@endpoint}/addon/ui/room/#{room_id_or_name}",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -63,7 +63,7 @@ defmodule Hipchat.V2.Integrations do
   def user_addon_ui_update(client, user_id_or_email, body) do
     Httpc.request(:post,
                   "#{@endpoint}/addon/ui/user/#{user_id_or_email}",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end
@@ -75,7 +75,7 @@ defmodule Hipchat.V2.Integrations do
   def user_in_room_addon_ui_update(client, room_id_or_name, user_id_or_email, body) do
     Httpc.request(:post,
                   "#{@endpoint}/addon/ui/room/#{room_id_or_name}/user/#{user_id_or_email}",
-                  {:form, Map.to_list(body)},
+                  body,
                   Client.headers(client),
                   Client.options(client, []))
   end

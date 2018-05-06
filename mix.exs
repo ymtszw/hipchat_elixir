@@ -3,15 +3,15 @@ defmodule Hipchat.Mixfile do
 
   @github_url "https://github.com/ymtszw/hipchat_elixir"
 
-  def project do
+  def project() do
     [
       app:             :hipchat_elixir,
       version:         "0.2.2",
       elixir:          "~> 1.3",
       build_embedded:  Mix.env == :prod,
       start_permanent: false,
-      deps:            deps,
-      elixirc_paths:   paths,
+      deps:            deps(),
+      elixirc_paths:   paths(),
       description:     "HiChat client library for Elixir",
       source_url:      @github_url,
       package:         [
@@ -23,8 +23,8 @@ defmodule Hipchat.Mixfile do
     ]
   end
 
-  def application do
-    apps = case Mix.env do
+  def application() do
+    apps = case Mix.env() do
       :dev  -> [:hackney, :exsync] # :yamerl is manually started in mix task
       :test -> [:hackney, :yamerl]
       _else -> [:hackney]
@@ -32,7 +32,7 @@ defmodule Hipchat.Mixfile do
     [applications: apps]
   end
 
-  defp deps do
+  defp deps() do
     [
       {:hackney       , "1.6.3"                       },
       {:exsync        , "~> 0.1" , only: :dev         },
@@ -42,8 +42,8 @@ defmodule Hipchat.Mixfile do
     ]
   end
 
-  defp paths do
-    case Mix.env do
+  defp paths() do
+    case Mix.env() do
       :dev  -> ["lib", "generator"]
       :test -> ["lib", "generator"]
       _else -> ["lib"]
