@@ -70,7 +70,7 @@ defmodule Hipchat.Generator do
   end
 
   defp extract_params(params) do
-    path_params = Enum.filter_map(params, fn %{"in" => pin} -> pin == "path" end, &Map.get(&1, "name"))
+    path_params = params |> Enum.filter(fn %{"in" => pin} -> pin == "path" end) |> Enum.map(&Map.get(&1, "name"))
     has_query?  = Enum.any?(params, fn %{"in" => pin} -> pin == "query" end)
     has_body?   = Enum.any?(params, fn %{"in" => pin} -> pin == "body" end)
     {path_params, has_query?, has_body?}

@@ -12,6 +12,6 @@ defmodule Mix.Tasks.Hipchat.Generate do
 
   def run(_args) do
     Application.ensure_started(:yamerl)
-    Hipchat.Generator.generate
+    Hipchat.Generator.generate()
   end
 end
