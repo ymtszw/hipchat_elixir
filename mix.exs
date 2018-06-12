@@ -23,22 +23,13 @@ defmodule Hipchat.Mixfile do
     ]
   end
 
-  def application() do
-    apps = case Mix.env() do
-      :dev  -> [:hackney, :exsync] # :yamerl is manually started in mix task
-      :test -> [:hackney, :yamerl]
-      _else -> [:hackney]
-    end
-    [applications: apps]
-  end
-
   defp deps() do
     [
-      {:hackney       , "~> 1.6.3"                    },
-      {:exsync        , "~> 0.1" , only: :dev         },
-      {:ex_doc        , "~> 0.14", only: :dev         },
-      {:mix_test_watch, "~> 0.2" , only: :dev         },
-      {:yamerl        , "~> 0.4" , only: [:dev, :test]},
+      {:hackney       , "~> 1.6.3"},
+      {:exsync        , "~> 0.1" , only: :dev         , runtime: Mix.env() == :dev },
+      {:ex_doc        , "~> 0.14", only: :dev         , runtime: false             },
+      {:mix_test_watch, "~> 0.2" , only: :dev         , runtime: false             },
+      {:yamerl        , "~> 0.4" , only: [:dev, :test], runtime: Mix.env() == :test},
     ]
   end
 
