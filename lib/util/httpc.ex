@@ -62,6 +62,7 @@ defmodule Hipchat.Httpc do
     end
   end
 
+  defp serialize_body("", headers), do: {"", headers}
   @serializer Application.get_env(:hipchat_elixir, :serializer, Poison)
   case Code.ensure_loaded(@serializer) do
     {:module, Poison} ->
