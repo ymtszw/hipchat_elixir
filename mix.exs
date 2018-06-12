@@ -6,13 +6,13 @@ defmodule Hipchat.Mixfile do
   def project() do
     [
       app:             :hipchat_elixir,
-      version:         "0.2.3",
+      version:         "0.3.0",
       elixir:          "~> 1.3",
       build_embedded:  Mix.env == :prod,
       start_permanent: false,
       deps:            deps(),
       elixirc_paths:   paths(),
-      description:     "HiChat client library for Elixir",
+      description:     "HipChat client library for Elixir",
       source_url:      @github_url,
       package:         [
         files:       ["lib", "mix.exs", "LICENSE", "README.md", "CHANGELOG.md"],
