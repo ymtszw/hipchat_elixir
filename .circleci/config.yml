@@ -10,6 +10,7 @@ jobs:
           keys:
             - repo-{{ .Branch }}-{{ .Revision }}
             - repo-{{ .Branch }}-
+            - repo-
       - checkout
       - run: mix local.hex --force
       - run: mix local.rebar --force
@@ -20,6 +21,7 @@ jobs:
           key: repo-{{ .Branch }}-{{ .Revision }}
           paths:
             - .
+            - ~/.mix
             - ~/.cache
 
 workflows:
