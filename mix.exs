@@ -25,7 +25,7 @@ defmodule Hipchat.Mixfile do
 
   defp deps() do
     [
-      {:hackney    , "~> 1.6.3"},
+      {:hackney    , "~> 1.6"                                                   },
       {:exsync     , "~> 0.1" , only: :dev         , runtime: Mix.env() == :dev },
       {:ex_doc     , "~> 0.14", only: :dev         , runtime: false             },
       {:yamerl     , "~> 0.4" , only: [:dev, :test], runtime: Mix.env() == :test},
