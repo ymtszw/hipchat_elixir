@@ -1,6 +1,7 @@
 # hipchat_elixir
 
 [![Hex.pm](https://img.shields.io/hexpm/v/hipchat_elixir.svg)](https://hex.pm/packages/hipchat_elixir)
+[![CircleCI](https://circleci.com/gh/ymtszw/hipchat_elixir/tree/master.svg?style=svg)](https://circleci.com/gh/ymtszw/hipchat_elixir/tree/master)
 
 HipChat client library for [Elixir](http://elixir-lang.org).
 
