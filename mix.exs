@@ -40,4 +40,8 @@ defmodule Hipchat.Mixfile do
       _else -> ["lib"]
     end
   end
+
+  def application() do
+    [extra_applications: [:logger]]
+  end
 end
