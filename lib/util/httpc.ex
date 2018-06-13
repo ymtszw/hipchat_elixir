@@ -65,13 +65,20 @@ defmodule Hipchat.Httpc do
     end
   end
 
-  defp serialize_body("", headers), do: {"", headers}
-  @serializer Application.get_env(:hipchat_elixir, :serializer, Poison)
-  case Code.ensure_loaded(@serializer) do
-    {:module, Poison} ->
-      defp serialize_body(body, headers), do: {Poison.encode!(body), [{"content-type", "application/json"} | headers]}
-    {:error, _} ->
-      defp serialize_body(body, headers), do: {{:form, Map.to_list(body)}, headers}
+  defp serialize_body("", headers) do
+    {"", headers}
+  end
+  defp serialize_body(body, headers) do
+    case serializer() do
+      Poison ->
+        {Poison.encode!(body), [{"content-type", "application/json"} | headers]}
+      :form ->
+        {{:form, Map.to_list(body)}, headers}
+    end
+  end
+
+  defp serializer() do
+    Application.get_env(:hipchat_elixir, :serializer, Poison)
   end
 
   defp convert_resp_headers(resp_headers) do

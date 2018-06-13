@@ -13,18 +13,36 @@ defmodule HipchatTest do
       |> String.to_existing_atom()
     end)
 
-  @dummy_client Hipchat.ApiClient.new("dummy_access_token")
+  @token_from_env System.get_env("HIPCHAT_ACCESS_TOKEN")
+  @dummy_client   Hipchat.ApiClient.new(@token_from_env || "dummy_access_token", true)
+
+  setup do
+    on_exit(fn ->
+      Application.put_env(:hipchat_elixir, :serializer, Poison)
+    end)
+  end
 
   # Here we are using stream_data just for generating a single random parameter set per API,
   # since overloading HipChat Cloud server with too much requests are not desirable.
-  # `@dummy_client` uses a dummy token, so all requests should fail with 401 Unauthorized
+  # When `@dummy_client` uses a dummy token, all requests should fail with 401 Unauthorized
   # (provided all APIs require authentication).
   for mod <- all_v2_modules, {{fun, arity}, {[[Hipchat.Client, :t] | other_input_types], _output_type}} <- Typespec.extract(mod) do
     property "#{inspect(mod)}.#{fun}/#{arity} should properly send request" do
       args_generator = unquote(other_input_types) |> Enum.map(fn type -> Typespec.generator(type) end) |> StreamData.fixed_list()
-      check all args <- args_generator, max_runs: 1 do
-        assert {:ok, %Response{status: 401}} = apply(unquote(mod), unquote(fun), [@dummy_client | args])
+      check all args <- args_generator, not "" in args, max_runs: 1 do
+        assert {:ok, %Response{} = res} = apply(unquote(mod), unquote(fun), [@dummy_client | args])
+        assert_status(res)
+        Application.put_env(:hipchat_elixir, :serializer, :form)
+        assert {:ok, %Response{} = res} = apply(unquote(mod), unquote(fun), [@dummy_client | args])
+        assert_status(res)
       end
     end
   end
+
+  if @token_from_env do
+    defp assert_status(%Response{status: status}) when status in [200, 400, 401, 403, 404, 429], do: :ok
+  else
+    defp assert_status(%Response{status: 401}), do: :ok
+  end
+  defp assert_status(res), do: flunk("Unexpected response: #{inspect(res)}")
 end
