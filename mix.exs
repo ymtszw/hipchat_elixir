@@ -30,7 +30,7 @@ defmodule Hipchat.Mixfile do
       {:ex_doc     , "~> 0.14", only: :dev         , runtime: false             },
       {:yamerl     , "~> 0.4" , only: [:dev, :test], runtime: Mix.env() == :test},
       {:stream_data, "~> 0.4" , only: :test                                     },
-      {:poison     , "~> 2.0" , only: :test                                     },
+      {:poison     , "~> 2.0" , only: [:dev, :test]                             },
     ]
   end
 

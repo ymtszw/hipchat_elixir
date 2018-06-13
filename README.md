@@ -102,9 +102,10 @@ This library codes are generated from [ymtszw/hipchat_swagger](https://github.co
     - `tags` as API categories, with camel-casing. They are used for separating modules (files). Expecting only **one** tag per API.
 - Basically discarding parameters' schema/type information, at least currently.
 - Response information are discarded too.
-- Request bodies are sent as formdata. Since `hackney` can send key-value data list as formdata by itself.
-    - To send as JSONs, we must introduce some JSON serializer library, which could be `poison`, `jsone` or whatever, depending on users.
-      I want to reduce the number of runtime dependencies.
+- Request bodies are sent as `content-type: application/json` or `content-type: x-www-form-urlencoded` depending on `:serializer` config value.
+    - See [`config/config.exs`](https://github.com/ymtszw/hipchat_elixir/blob/master/config/config.exs) for example.
+    - Some HipChat APIs (implicitly) require `content-type: application/json`, so **introducing JSON serializer is almost mandatory**.
+        - Currently only supports [`Poison`](https://github.com/devinus/poison).
 
 # Todo
 
