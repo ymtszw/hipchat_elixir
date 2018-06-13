@@ -6,7 +6,7 @@ defmodule Hipchat.Mixfile do
   def project() do
     [
       app:             :hipchat_elixir,
-      version:         "0.3.0",
+      version:         "0.4.0",
       elixir:          "~> 1.3",
       build_embedded:  Mix.env == :prod,
       start_permanent: false,
@@ -25,11 +25,12 @@ defmodule Hipchat.Mixfile do
 
   defp deps() do
     [
-      {:hackney       , "~> 1.6.3"},
-      {:exsync        , "~> 0.1" , only: :dev         , runtime: Mix.env() == :dev },
-      {:ex_doc        , "~> 0.14", only: :dev         , runtime: false             },
-      {:mix_test_watch, "~> 0.2" , only: :dev         , runtime: false             },
-      {:yamerl        , "~> 0.4" , only: [:dev, :test], runtime: Mix.env() == :test},
+      {:hackney    , "~> 1.6.3"},
+      {:exsync     , "~> 0.1" , only: :dev         , runtime: Mix.env() == :dev },
+      {:ex_doc     , "~> 0.14", only: :dev         , runtime: false             },
+      {:yamerl     , "~> 0.4" , only: [:dev, :test], runtime: Mix.env() == :test},
+      {:stream_data, "~> 0.4" , only: :test                                     },
+      {:poison     , "~> 2.0" , only: :test                                     },
     ]
   end
 

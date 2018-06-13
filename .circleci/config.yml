@@ -1,0 +1,31 @@
+version: 2
+
+jobs:
+  test:
+    docker:
+      - image: circleci/elixir:1.5.3
+    working_directory: /tmp/hipchat_elixir
+    steps:
+      - restore_cache:
+          keys:
+            - repo-{{ .Branch }}-{{ .Revision }}
+            - repo-{{ .Branch }}-
+            - repo-
+      - checkout
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+      - run: mix deps.get
+      - run: mix test --trace
+      - save_cache:
+          # Save deps here, since rebar3 may perform additional fetching/caching
+          key: repo-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - .
+            - ~/.mix
+            - ~/.cache
+
+workflows:
+  version: 2
+  hipchat_elixir:
+    jobs:
+      - test
