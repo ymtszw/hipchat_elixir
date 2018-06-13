@@ -1,10 +1,5 @@
 use Mix.Config
 
-secrets_file = Path.expand(Path.join(__DIR__, "secrets.exs"))
-if Mix.env() in [:dev, :test] and File.regular?(secrets_file) do
-  import_config secrets_file # For development of this library.
-end
-
 # These are configs for development/test/example
 config :hipchat_elixir, [
   # Set request body serializer module. Currently only accepts `Poison` or `:form`.
