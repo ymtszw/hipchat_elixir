@@ -2,7 +2,7 @@
 
 Log (mostly) breaking changes only.
 
-## 0.4.0 (coming)
+## 0.4.0 (around [78c251e](https://github.com/ymtszw/hipchat_elixir/commit/78c251edf2ed23092f031322655a95d2598430d6))
 
 - JSON serializer config is now retrieved at runtime (not requiring `mix deps.compile hipchat_elixir`)
 - `Hipchat.Httpc.Request` structs now have `:request` field
