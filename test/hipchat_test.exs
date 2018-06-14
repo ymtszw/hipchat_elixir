@@ -40,7 +40,7 @@ defmodule HipchatTest do
   end
 
   if @token_from_env do
-    defp assert_status(%Response{status: status}) when status in [202, 400, 401, 403, 404, 429], do: :ok
+    defp assert_status(%Response{status: status}) when status in [202, 400, 403, 404, 429], do: :ok
   else
     defp assert_status(%Response{status: 401}), do: :ok
   end
