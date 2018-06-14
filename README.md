@@ -8,8 +8,6 @@ HipChat client library for [Elixir](http://elixir-lang.org).
 - [API Documentation](https://hexdocs.pm/hipchat_elixir/api-reference.html)
 - Generated from HipChat Swagger API specifications in [ymtszw/hipchat_swagger](https://github.com/ymtszw/hipchat_swagger).
 
-Depends on `hackney` for HTTP client.
-
 # Status
 
 Basic chat related APIs (CRUD operation of rooms/users, sending messages/notifications) are covered.
@@ -19,7 +17,6 @@ Add-on (extension) related APIs are yet to be covered.
 # Policy
 
 - No state. Access tokens and other credentials should be retrieved/stored by caller applications.
-    - Although, `hackney` application does have some states.
 - Relying HipChat cloud/server for parameter validations.
 - Cover APIs used in server side only.
 

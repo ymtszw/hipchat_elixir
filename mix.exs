@@ -12,6 +12,7 @@ defmodule Hipchat.Mixfile do
       start_permanent: false,
       deps:            deps(),
       elixirc_paths:   paths(),
+      dialyzer:        [plt_add_deps: :transitive, plt_add_apps: [:eex, :mix]],
       description:     "HipChat client library for Elixir",
       source_url:      @github_url,
       package:         [
@@ -25,7 +26,7 @@ defmodule Hipchat.Mixfile do
 
   defp deps() do
     [
-      {:hackney    , "~> 1.6"                                                   },
+      {:dialyxir   , "~> 0.5" , only: :dev         , runtime: false             },
       {:exsync     , "~> 0.1" , only: :dev         , runtime: Mix.env() == :dev },
       {:ex_doc     , "~> 0.14", only: :dev         , runtime: false             },
       {:yamerl     , "~> 0.4" , only: [:dev, :test], runtime: Mix.env() == :test},
@@ -40,5 +41,9 @@ defmodule Hipchat.Mixfile do
       :test -> ["lib", "generator"]
       _else -> ["lib"]
     end
+  end
+
+  def application() do
+    [extra_applications: [:inets]]
   end
 end

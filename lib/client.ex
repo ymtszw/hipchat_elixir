@@ -2,7 +2,9 @@ defprotocol Hipchat.Client do
   @moduledoc """
   Client protocol used by `ApiClient` and `OauthClient`.
   """
+  @fallback_to_any true
 
+  @type t :: Hipchat.ApiClient.t | Hipchat.OauthClient.t
   @type query_params_t :: [{String.t, String.t}]
 
   @doc """
@@ -18,6 +20,12 @@ defprotocol Hipchat.Client do
   def options(client, query_params)
 end
 
+defimpl Hipchat.Client, for: Any do
+  @err "Hipchat.Client protocol is only valid for select struct types."
+  def headers(_), do: raise(@err)
+  def options(_, _), do: raise(@err)
+end
+
 defmodule Hipchat.ApiClient do
   @moduledoc """
   Client struct module for ordinary HipChat APIs.
@@ -29,11 +37,11 @@ defmodule Hipchat.ApiClient do
   use `Hipchat.OauthClient` instead.
   """
 
-  defstruct [:access_token, :auth_test?, :hackney_opts]
+  defstruct [:access_token, :auth_test?, :httpc_opts]
   @type t :: %__MODULE__{
     access_token: nil | String.t,
     auth_test?:   boolean,
-    hackney_opts: list,
+    httpc_opts:   list,
   }
 
   @doc """
@@ -45,15 +53,24 @@ defmodule Hipchat.ApiClient do
   If `auth_test?` is set to `true`, `auth_test=true` query parameter will be generated. Defaults to `false`.
   This can be used to test an `access_token`.
 
-  For `hackney_opts`, see [here](https://hexdocs.pm/hackney/hackney.html#request-5) for details.
+  For `httpc_opts`, see `Hipchat.Httpc.request/5` for details.
   """
   @spec new(nil | String.t, boolean, list) :: t
-  def new(access_token, auth_test? \\ false, hackney_opts \\ []) do
+  def new(access_token, auth_test? \\ false, httpc_opts \\ []) do
     %__MODULE__{
       access_token: access_token,
       auth_test?:   auth_test?,
-      hackney_opts: hackney_opts,
+      httpc_opts:   httpc_opts,
     }
+  end
+
+  alias __MODULE__, as: AC
+  defimpl Hipchat.Client do
+    def headers(%AC{access_token: nil}), do: []
+    def headers(%AC{access_token: a_t}), do: [{"authorization", "Bearer #{a_t}"}]
+
+    def options(%AC{auth_test?: false, httpc_opts: ho}, query_params), do: [{:params, query_params} | ho]
+    def options(%AC{auth_test?: true , httpc_opts: ho}, query_params), do: [{:params, [{"auth_test", "true"} | query_params]} | ho]
   end
 end
 
@@ -64,11 +81,11 @@ defmodule Hipchat.OauthClient do
   Use this client and request to Token API (e.g. `Hipchat.V2.Oauth.generate_token/2`)
   to retrieve Add-on token or User token.
   """
-  defstruct [:client_id, :client_secret, :hackney_opts]
+  defstruct [:client_id, :client_secret, :httpc_opts]
   @type t :: %__MODULE__{
     client_id:     String.t,
     client_secret: String.t,
-    hackney_opts:  list,
+    httpc_opts:    list,
   }
 
   @doc """
@@ -77,35 +94,24 @@ defmodule Hipchat.OauthClient do
   `client_id` and `client_secret` must be retrieved and stored on Add-on server per installation,
   during [Add-on Installation Flow](https://developer.atlassian.com/hipchat/guide/installation-flow).
 
-  For `hackney_opts`, see [here](https://hexdocs.pm/hackney/hackney.html#request-5) for details.
+  For `httpc_opts`, see `Hipchat.Httpc.request/5` for details.
   """
   @spec new(String.t, String.t, list) :: t
-  def new(client_id, client_secret, hackney_opts \\ []) do
+  def new(client_id, client_secret, httpc_opts \\ []) do
     %__MODULE__{
       client_id:     client_id,
       client_secret: client_secret,
-      hackney_opts:  hackney_opts,
+      httpc_opts:    httpc_opts,
     }
   end
-end
 
-defimpl Hipchat.Client, for: Hipchat.ApiClient do
-  alias Hipchat.ApiClient
+  alias __MODULE__, as: OC
+  defimpl Hipchat.Client do
+    def headers(%OC{client_id: ci, client_secret: cs}) do
+      encoded = Base.encode64("#{ci}:#{cs}")
+      [{"authorization", "Basic #{encoded}"}]
+    end
 
-  def headers(%ApiClient{access_token: nil}), do: []
-  def headers(%ApiClient{access_token: a_t}), do: [{"authorization", "Bearer #{a_t}"}]
-
-  def options(%ApiClient{auth_test?: false, hackney_opts: ho}, query_params), do: [{:params, query_params} | ho]
-  def options(%ApiClient{auth_test?: true , hackney_opts: ho}, query_params), do: [{:params, [{"auth_test", "true"} | query_params]} | ho]
-end
-
-defimpl Hipchat.Client, for: Hipchat.OauthClient do
-  alias Hipchat.OauthClient
-
-  def headers(%OauthClient{client_id: ci, client_secret: cs}) do
-    encoded = Base.encode64("#{ci}:#{cs}")
-    [{"authorization", "Basic #{encoded}"}]
+    def options(%OC{httpc_opts: ho}, query_params), do: [{:params, query_params} | ho]
   end
-
-  def options(%OauthClient{hackney_opts: ho}, query_params), do: [{:params, query_params} | ho]
 end
