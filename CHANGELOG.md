@@ -2,6 +2,10 @@
 
 Log (mostly) breaking changes only.
 
+## 0.5.0 (coming)
+
+- Drop hackney dependency, use Erlang's `httpc`
+
 ## 0.4.0 (around [78c251e](https://github.com/ymtszw/hipchat_elixir/commit/78c251edf2ed23092f031322655a95d2598430d6))
 
 - JSON serializer config is now retrieved at runtime (not requiring `mix deps.compile hipchat_elixir`)
