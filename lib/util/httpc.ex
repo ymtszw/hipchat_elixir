@@ -73,7 +73,7 @@ defmodule Hipchat.Httpc do
       Poison ->
         {Poison.encode!(body), [{"content-type", "application/json"} | headers]}
       :form ->
-        {{:form, Map.to_list(body)}, headers}
+        {URI.encode_query(body), [{"content-type", "application/x-www-form-urlencoded"} | headers]}
     end
   end
 
