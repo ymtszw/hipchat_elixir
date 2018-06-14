@@ -33,6 +33,54 @@ defmodule Hipchat.Httpc do
     end
   end
 
+  defmodule Erl do
+    @moduledoc false
+    # Wraps Erlang's `httpc` (http://erlang.org/doc/man/httpc.html)
+    # Works in synchronous mode.
+
+    @type headers_t :: [{String.t, String.t}]
+    @type res_t :: {:ok, {status_code :: integer, headers_t, body :: String.t}} | {:error, reason :: term}
+
+    @spec request(atom, String.t, headers_t, String.t | nil, String.t | nil, Keyword.t, Keyword.t) :: res_t
+    def request(method, url_with_param, headers, content_type, body, http_options, options) do
+      req = httpc_req(url_with_param, headers, content_type, body)
+      case :httpc.request(method, req, to_charlist_kvs(http_options), force_sync_options(options)) do
+        {:ok, {{_http_ver, status, _reason}, resp_headers, resp_body}} ->
+          {:ok, {status, from_charlist_kvs(resp_headers), resp_body}}
+        {:error, _} = e ->
+          e
+      end
+    end
+
+    defp binary_to_charlist(binary) when is_binary(binary), do: to_charlist(binary)
+    defp binary_to_charlist(other), do: other
+
+    defp to_charlist_kvs(kvs) do
+      Enum.map(kvs, fn {key, val} -> {binary_to_charlist(key), binary_to_charlist(val)} end)
+    end
+
+    defp httpc_req(url_with_param, headers, nil, nil) do
+      {binary_to_charlist(url_with_param), to_charlist_kvs(headers)}
+    end
+    defp httpc_req(url_with_param, headers, content_type, body) do
+      {binary_to_charlist(url_with_param), to_charlist_kvs(headers), binary_to_charlist(content_type), body}
+    end
+
+    defp force_sync_options(options) do
+      options
+      |> Keyword.merge([
+        sync: true,
+        body_format: :binary,
+        full_result: true,
+      ])
+      |> to_charlist_kvs()
+    end
+
+    defp from_charlist_kvs(kvs) do
+      Enum.map(kvs, fn {key, val} -> {List.to_string(key), List.to_string(val)} end)
+    end
+  end
+
   @type method_t  :: :get | :post | :put | :delete
   @type headers_t :: [{String.t, String.t}]
   @type options_t :: list
