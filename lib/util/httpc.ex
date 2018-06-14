@@ -45,6 +45,8 @@ defmodule Hipchat.Httpc do
 
   - `:http_options` for `http_options` in `:httpc.request/4`
   - `:params` option can take query params as `Hipchat.Client.query_params_t`.
+
+  It can be injected via `Hipchat.Client.t`.
   """
   @spec request(method_t, String.t, term, headers_t, options_t) :: res_t
   def request(method, url, body, headers, options \\ []) do
