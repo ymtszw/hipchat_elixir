@@ -2,6 +2,7 @@ defprotocol Hipchat.Client do
   @moduledoc """
   Client protocol used by `ApiClient` and `OauthClient`.
   """
+  @fallback_to_any true
 
   @type t :: Hipchat.ApiClient.t | Hipchat.OauthClient.t
   @type query_params_t :: [{String.t, String.t}]
@@ -17,6 +18,12 @@ defprotocol Hipchat.Client do
   """
   @spec options(t, query_params_t) :: Hipchat.Httpc.options_t
   def options(client, query_params)
+end
+
+defimpl Hipchat.Client, for: Any do
+  @err "Hipchat.Client protocol is only valid for select struct types."
+  def headers(_), do: raise(@err)
+  def options(_, _), do: raise(@err)
 end
 
 defmodule Hipchat.ApiClient do
@@ -56,6 +63,15 @@ defmodule Hipchat.ApiClient do
       httpc_opts:   httpc_opts,
     }
   end
+
+  alias __MODULE__, as: AC
+  defimpl Hipchat.Client do
+    def headers(%AC{access_token: nil}), do: []
+    def headers(%AC{access_token: a_t}), do: [{"authorization", "Bearer #{a_t}"}]
+
+    def options(%AC{auth_test?: false, httpc_opts: ho}, query_params), do: [{:params, query_params} | ho]
+    def options(%AC{auth_test?: true , httpc_opts: ho}, query_params), do: [{:params, [{"auth_test", "true"} | query_params]} | ho]
+  end
 end
 
 defmodule Hipchat.OauthClient do
@@ -88,25 +104,14 @@ defmodule Hipchat.OauthClient do
       httpc_opts:    httpc_opts,
     }
   end
-end
 
-defimpl Hipchat.Client, for: Hipchat.ApiClient do
-  alias Hipchat.ApiClient
+  alias __MODULE__, as: OC
+  defimpl Hipchat.Client do
+    def headers(%OC{client_id: ci, client_secret: cs}) do
+      encoded = Base.encode64("#{ci}:#{cs}")
+      [{"authorization", "Basic #{encoded}"}]
+    end
 
-  def headers(%ApiClient{access_token: nil}), do: []
-  def headers(%ApiClient{access_token: a_t}), do: [{"authorization", "Bearer #{a_t}"}]
-
-  def options(%ApiClient{auth_test?: false, httpc_opts: ho}, query_params), do: [{:params, query_params} | ho]
-  def options(%ApiClient{auth_test?: true , httpc_opts: ho}, query_params), do: [{:params, [{"auth_test", "true"} | query_params]} | ho]
-end
-
-defimpl Hipchat.Client, for: Hipchat.OauthClient do
-  alias Hipchat.OauthClient
-
-  def headers(%OauthClient{client_id: ci, client_secret: cs}) do
-    encoded = Base.encode64("#{ci}:#{cs}")
-    [{"authorization", "Basic #{encoded}"}]
+    def options(%OC{httpc_opts: ho}, query_params), do: [{:params, query_params} | ho]
   end
-
-  def options(%OauthClient{httpc_opts: ho}, query_params), do: [{:params, query_params} | ho]
 end
