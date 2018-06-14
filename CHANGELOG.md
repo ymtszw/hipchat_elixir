@@ -2,7 +2,7 @@
 
 Log (mostly) breaking changes only.
 
-## 0.5.0 (coming)
+## 0.5.0 (around [b2756c2](https://github.com/ymtszw/hipchat_elixir/commit/b2756c2b63360cab4dd75a3e9fc4c9da47f8e483))
 
 - Drop hackney dependency, use Erlang's `httpc`
 - `Hipchat.ApiClient` and `HipChat.OauthClient` structs now have `:httpc_opts` field instead of `:hackney_opts`
