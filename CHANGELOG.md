@@ -5,11 +5,12 @@ Log (mostly) breaking changes only.
 ## 0.5.0 (coming)
 
 - Drop hackney dependency, use Erlang's `httpc`
+- `Hipchat.ApiClient` and `HipChat.OauthClient` structs now have `:httpc_opts` field instead of `:hackney_opts`
 
 ## 0.4.0 (around [78c251e](https://github.com/ymtszw/hipchat_elixir/commit/78c251edf2ed23092f031322655a95d2598430d6))
 
 - JSON serializer config is now retrieved at runtime (not requiring `mix deps.compile hipchat_elixir`)
-- `Hipchat.Httpc.Request` structs now have `:request` field
+- `Hipchat.Httpc.Response` structs now have `:request` field
 
 ## 0.3.0 (around [241bd9f](https://github.com/ymtszw/hipchat_elixir/commit/241bd9f19623e876ad5a7019458ab341f49c399a))
 
