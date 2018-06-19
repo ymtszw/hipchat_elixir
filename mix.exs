@@ -29,7 +29,7 @@ defmodule Hipchat.Mixfile do
         maintainers: ["Yu Matsuzawa"],
         links:       %{
           "GitHub"    => @github_url,
-          "CHANGELOG" => "#{@github_url}/blob/blob/master/CHANGELOG.md"
+          "CHANGELOG" => "#{@github_url}/blob/master/CHANGELOG.md"
         },
       ],
     ]
