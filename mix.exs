@@ -6,7 +6,7 @@ defmodule Hipchat.Mixfile do
   def project() do
     [
       app:             :hipchat_elixir,
-      version:         "0.5.0",
+      version:         "0.5.1",
       elixir:          "~> 1.3",
       build_embedded:  Mix.env == :prod,
       start_permanent: false,
