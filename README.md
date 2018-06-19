@@ -5,7 +5,7 @@
 
 HipChat client library for [Elixir](http://elixir-lang.org).
 
-- [API Documentation](https://hexdocs.pm/hipchat_elixir/api-reference.html)
+- [API Documentation](https://hexdocs.pm/hipchat_elixir)
 
 ## Policy
 
