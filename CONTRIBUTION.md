@@ -1,4 +1,4 @@
-# Develop and contribute to `hipchat_elixir`
+# Development and Contributions
 
 ## HipChat API binding modules generation
 

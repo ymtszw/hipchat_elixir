@@ -1,4 +1,4 @@
-# HipChat API Authentication
+# API Authentication
 
 ## About `access_token`s
 

@@ -15,11 +15,22 @@ defmodule Hipchat.Mixfile do
       dialyzer:        [plt_add_deps: :transitive, plt_add_apps: [:eex, :mix]],
       description:     "HipChat client library for Elixir",
       source_url:      @github_url,
+      docs:            [
+        main:   "readme",
+        extras: [
+          "README.md",
+          "CONTRIBUTION.md",
+          "doc_src/authentication.md",
+        ]
+      ],
       package:         [
         files:       ["lib", "mix.exs", "LICENSE", "README.md", "CHANGELOG.md"],
         licenses:    ["MIT"],
         maintainers: ["Yu Matsuzawa"],
-        links:       %{"GitHub" => @github_url},
+        links:       %{
+          "GitHub"    => @github_url,
+          "CHANGELOG" => "#{@github_url}/blob/blob/master/CHANGELOG.md"
+        },
       ],
     ]
   end
