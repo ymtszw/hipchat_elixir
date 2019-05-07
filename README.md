@@ -1,3 +1,9 @@
+# :warning: DISCONTINUATION NOTICE
+
+[HipChat itself is discontinued by Atlassian due to their partnership with Slack](https://www.atlassian.com/partnerships/slack).
+
+This Elixir library is therefore no longer maintained, and goes archive. Thanks for your interest though! :heart:
+
 # hipchat_elixir
 
 [![Hex.pm](https://img.shields.io/hexpm/v/hipchat_elixir.svg)](https://hex.pm/packages/hipchat_elixir)
